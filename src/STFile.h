@@ -24,6 +24,7 @@
 
 #define STFileID3v1Type     @"ID3v1"
 #define STFileID3v2Type     @"ID3v2"
+#define STFileM4AType       @"M4A"
 
 @interface STFile : NSObject {
 @private

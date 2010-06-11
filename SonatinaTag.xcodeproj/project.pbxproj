@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A7757BB11BDA7DB00B590C0 /* STTagM4A.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A7757B911BDA7DB00B590C0 /* STTagM4A.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A7757BC11BDA7DB00B590C0 /* STTagM4A.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7757BA11BDA7DB00B590C0 /* STTagM4A.m */; };
 		2A8921B711B9A58300F9EC90 /* STTagID3v2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A8921B511B9A58300F9EC90 /* STTagID3v2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A8921B811B9A58300F9EC90 /* STTagID3v2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8921B611B9A58300F9EC90 /* STTagID3v2.m */; };
 		2A8921C611B9AE0600F9EC90 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
@@ -29,6 +31,8 @@
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2A7757B911BDA7DB00B590C0 /* STTagM4A.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagM4A.h; path = src/m4a/STTagM4A.h; sourceTree = "<group>"; };
+		2A7757BA11BDA7DB00B590C0 /* STTagM4A.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagM4A.m; path = src/m4a/STTagM4A.m; sourceTree = "<group>"; };
 		2A8921B511B9A58300F9EC90 /* STTagID3v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagID3v2.h; path = src/id3v2/STTagID3v2.h; sourceTree = "<group>"; };
 		2A8921B611B9A58300F9EC90 /* STTagID3v2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagID3v2.m; path = src/id3v2/STTagID3v2.m; sourceTree = "<group>"; };
 		2A8922DC11B9E01D00F9EC90 /* STTagID3v2Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagID3v2Frame.h; path = src/id3v2/STTagID3v2Frame.h; sourceTree = "<group>"; };
@@ -104,6 +108,7 @@
 				2A8922E411B9E3B400F9EC90 /* Utilities */,
 				2A89247C11BA0FF400F9EC90 /* ID3v1 */,
 				2A8921B411B9A53800F9EC90 /* ID3v2 */,
+				2A7757B811BDA7A700B590C0 /* M4A */,
 				2ACD087111BAD21600983005 /* STFile.h */,
 				2ACD087211BAD21600983005 /* STFile.m */,
 				2ACD087811BAD41B00983005 /* STTag.h */,
@@ -124,6 +129,15 @@
 			children = (
 			);
 			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		2A7757B811BDA7A700B590C0 /* M4A */ = {
+			isa = PBXGroup;
+			children = (
+				2A7757B911BDA7DB00B590C0 /* STTagM4A.h */,
+				2A7757BA11BDA7DB00B590C0 /* STTagM4A.m */,
+			);
+			name = M4A;
 			sourceTree = "<group>";
 		};
 		2A8921B411B9A53800F9EC90 /* ID3v2 */ = {
@@ -181,6 +195,7 @@
 				2A89247F11BA101900F9EC90 /* STTagID3v1.h in Headers */,
 				2ACD087311BAD21600983005 /* STFile.h in Headers */,
 				2ACD087911BAD41B00983005 /* STTag.h in Headers */,
+				2A7757BB11BDA7DB00B590C0 /* STTagM4A.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +262,7 @@
 				2A89236B11B9F02200F9EC90 /* STTagID3v2URLFrame.m in Sources */,
 				2A89248011BA101900F9EC90 /* STTagID3v1.m in Sources */,
 				2ACD087411BAD21600983005 /* STFile.m in Sources */,
+				2A7757BC11BDA7DB00B590C0 /* STTagM4A.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

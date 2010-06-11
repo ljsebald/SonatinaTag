@@ -19,6 +19,28 @@
 #include "STFile.h"
 #include "STTagID3v1.h"
 #include "STTagID3v2.h"
+#include "STTagM4A.h"
+
+/* A dummy tag to reply with something at least somewhat valid when no other
+   tags are actually available */
+@interface STTagDummy : NSObject<STTag> {
+@private
+    NSString *_filename;
+}
+
+- (id)initFromFile:(NSString *)filename;
+- (void)dealloc;
+
+- (NSString *)title;
+- (NSString *)artist;
+- (NSString *)album;
+- (NSString *)year;
+- (NSString *)comment;
+
+- (int)trackNumber;
+- (int)discNumber;
+
+@end /* @interface STTagDummy */
 
 @implementation STFile
 
@@ -26,6 +48,8 @@
 {
     STTagID3v1 *id3v1;
     STTagID3v2 *id3v2;
+    STTagM4A *m4a;
+    STTagDummy *dummy;
 
     if((self = [super init]) != nil) {
         _filename = [filename retain];
@@ -45,6 +69,21 @@
         if(id3v2) {
             [_tags setObject:id3v2 forKey:STFileID3v2Type];
         }
+
+        dummy = [[STTagDummy alloc] initFromFile:filename];
+        if(dummy) {
+            [_tags setObject:dummy forKey:@"__dummy__"];
+        }
+
+        m4a = [[STTagM4A alloc] initFromFile:filename];
+        if(m4a) {
+            [_tags setObject:m4a forKey:STFileM4AType];
+        }
+
+        [id3v1 release];
+        [id3v2 release];
+        [dummy release];
+        [m4a release];
     }
 
     return self;
@@ -73,10 +112,71 @@ out_err:
 
     rv = [_tags objectForKey:STFileID3v2Type];
     if(rv == nil) {
-        rv = [_tags objectForKey:STFileID3v1Type];
+        rv = [_tags objectForKey:STFileM4AType];
+        if(rv == nil) {
+            rv = [_tags objectForKey:STFileID3v1Type];
+            if(rv == nil) {
+                rv = [_tags objectForKey:@"__dummy__"];
+            }
+        }
     }
 
     return rv;
 }
 
 @end /* @implementation STFile */
+
+@implementation STTagDummy
+
+- (id)initFromFile:(NSString *)filename
+{
+    if((self = [super init])) {
+        _filename =
+            [[NSString alloc] initWithString:[filename lastPathComponent]];
+    }
+
+   return self;
+}
+
+- (void)dealloc
+{
+    [_filename release];
+    [super dealloc];
+}
+
+- (NSString *)title
+{
+    return _filename;
+}
+
+- (NSString *)artist
+{
+    return @"";
+}
+
+- (NSString *)album
+{
+    return @"";
+}
+
+- (NSString *)year
+{
+    return @"";
+}
+
+- (NSString *)comment
+{
+    return @"";
+}
+
+- (int)trackNumber
+{
+    return 1;
+}
+
+- (int)discNumber
+{
+    return 1;
+}
+
+@end /* @implementation STTagDummy */
