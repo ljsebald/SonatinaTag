@@ -315,7 +315,7 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_VERSION = 4.0;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = SonatinaTag;
 				SDKROOT = macosx10.5;
 				WRAPPER_EXTENSION = framework;
@@ -345,6 +345,7 @@
 				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
 			};
