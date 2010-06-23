@@ -73,7 +73,9 @@ static NSStringEncoding encs[4] = {
 
 - (NSString *)text
 {
-    return _text;
+    NSCharacterSet *s =
+        [NSCharacterSet characterSetWithCharactersInString:@"\0"];
+    return [_text stringByTrimmingCharactersInSet:s];
 }
 
 @end /* @implementation STTagID3v2TextFrame */
