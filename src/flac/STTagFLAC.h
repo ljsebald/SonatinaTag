@@ -16,30 +16,30 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-#ifndef STFile_h
-#define STFile_h
+#ifndef STTagFLAC_h
+#define STTagFLAC_h
 
 #import <Foundation/Foundation.h>
 #include <SonatinaTag/STTag.h>
 
-#define STFileID3v1Type     @"ID3v1"
-#define STFileID3v2Type     @"ID3v2"
-#define STFileM4AType       @"M4A"
-#define STFileFLACType      @"FLAC"
-
-@interface STFile : NSObject {
+@interface STTagFLAC : NSObject<STTag> {
 @private
-    NSString *_filename;
-    NSMutableDictionary *_tags;
-    NSString *_defaultTag;
+    NSMutableDictionary *_vorbisComments;
+    NSData *_rawtag;
 }
 
-- (id)initWithFile:(NSString *)filename;
+- (id)initFromFile:(NSString *)file;
 - (void)dealloc;
 
-- (id<STTag>)getTagForType:(NSString *)type;
-- (id<STTag>)tag;
+- (NSString *)title;
+- (NSString *)artist;
+- (NSString *)album;
+- (NSString *)year;
+- (NSString *)comment;
 
-@end /* @interface STFile */
+- (int)trackNumber;
+- (int)discNumber;
 
-#endif /* !STFile_h */
+@end /* @interface STTagFLAC */
+
+#endif /* !STTagFLAC_h */

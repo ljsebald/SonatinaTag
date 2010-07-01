@@ -25,6 +25,8 @@
 		2ACD087311BAD21600983005 /* STFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ACD087111BAD21600983005 /* STFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2ACD087411BAD21600983005 /* STFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD087211BAD21600983005 /* STFile.m */; };
 		2ACD087911BAD41B00983005 /* STTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ACD087811BAD41B00983005 /* STTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2AEB414211DCD8E9003C1658 /* STTagFLAC.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AEB414111DCD8E9003C1658 /* STTagFLAC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2AEB414911DCDAB2003C1658 /* STTagFLAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEB414811DCDAB2003C1658 /* STTagFLAC.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +50,8 @@
 		2ACD087111BAD21600983005 /* STFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STFile.h; path = src/STFile.h; sourceTree = "<group>"; };
 		2ACD087211BAD21600983005 /* STFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STFile.m; path = src/STFile.m; sourceTree = "<group>"; };
 		2ACD087811BAD41B00983005 /* STTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTag.h; path = src/STTag.h; sourceTree = "<group>"; };
+		2AEB414111DCD8E9003C1658 /* STTagFLAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagFLAC.h; path = src/flac/STTagFLAC.h; sourceTree = "<group>"; };
+		2AEB414811DCDAB2003C1658 /* STTagFLAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagFLAC.m; path = src/flac/STTagFLAC.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* SonatinaTag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SonatinaTag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -109,6 +113,7 @@
 				2A89247C11BA0FF400F9EC90 /* ID3v1 */,
 				2A8921B411B9A53800F9EC90 /* ID3v2 */,
 				2A7757B811BDA7A700B590C0 /* M4A */,
+				2AEB413C11DCD870003C1658 /* FLAC */,
 				2ACD087111BAD21600983005 /* STFile.h */,
 				2ACD087211BAD21600983005 /* STFile.m */,
 				2ACD087811BAD41B00983005 /* STTag.h */,
@@ -173,6 +178,15 @@
 			name = ID3v1;
 			sourceTree = "<group>";
 		};
+		2AEB413C11DCD870003C1658 /* FLAC */ = {
+			isa = PBXGroup;
+			children = (
+				2AEB414111DCD8E9003C1658 /* STTagFLAC.h */,
+				2AEB414811DCDAB2003C1658 /* STTagFLAC.m */,
+			);
+			name = FLAC;
+			sourceTree = "<group>";
+		};
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +210,7 @@
 				2ACD087311BAD21600983005 /* STFile.h in Headers */,
 				2ACD087911BAD41B00983005 /* STTag.h in Headers */,
 				2A7757BB11BDA7DB00B590C0 /* STTagM4A.h in Headers */,
+				2AEB414211DCD8E9003C1658 /* STTagFLAC.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +278,7 @@
 				2A89248011BA101900F9EC90 /* STTagID3v1.m in Sources */,
 				2ACD087411BAD21600983005 /* STFile.m in Sources */,
 				2A7757BC11BDA7DB00B590C0 /* STTagM4A.m in Sources */,
+				2AEB414911DCDAB2003C1658 /* STTagFLAC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

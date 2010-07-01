@@ -20,6 +20,7 @@
 #include "STTagID3v1.h"
 #include "STTagID3v2.h"
 #include "STTagM4A.h"
+#include "STTagFLAC.h"
 
 /* A dummy tag to reply with something at least somewhat valid when no other
    tags are actually available */
@@ -46,13 +47,16 @@
 
 - (id)initWithFile:(NSString *)filename
 {
-    STTagID3v1 *id3v1;
-    STTagID3v2 *id3v2;
-    STTagM4A *m4a;
-    STTagDummy *dummy;
+    STTagID3v1 *id3v1 = nil;
+    STTagID3v2 *id3v2 = nil;
+    STTagM4A *m4a = nil;
+    STTagDummy *dummy = nil;
+    STTagFLAC *flac = nil;
+    NSString *ext;
 
     if((self = [super init]) != nil) {
         _filename = [filename retain];
+        ext = [filename pathExtension];
 
         /* Make our storage for tags */
         _tags = [[NSMutableDictionary alloc] initWithCapacity:0];
@@ -60,30 +64,57 @@
             [self release];
         }
 
-        id3v1 = [[STTagID3v1 alloc] initFromFile:filename];
-        if(id3v1) {
-            [_tags setObject:id3v1 forKey:STFileID3v1Type];
-        }
-
-        id3v2 = [[STTagID3v2 alloc] initFromFile:filename];
-        if(id3v2) {
-            [_tags setObject:id3v2 forKey:STFileID3v2Type];
-        }
-
+        /* Allocate a dummy tag, in case all else fails... */
         dummy = [[STTagDummy alloc] initFromFile:filename];
         if(dummy) {
             [_tags setObject:dummy forKey:@"__dummy__"];
         }
 
-        m4a = [[STTagM4A alloc] initFromFile:filename];
-        if(m4a) {
-            [_tags setObject:m4a forKey:STFileM4AType];
+        _defaultTag = [@"__dummy__" retain];
+        [dummy release];
+
+        /* Assume for now that MP3 files are all that contain ID3 tags... */
+        if([ext caseInsensitiveCompare:@"mp3"] == 0) {
+            id3v1 = [[STTagID3v1 alloc] initFromFile:filename];
+            if(id3v1) {
+                [_tags setObject:id3v1 forKey:STFileID3v1Type];
+                _defaultTag = [STFileID3v1Type retain];
+            }
+
+            id3v2 = [[STTagID3v2 alloc] initFromFile:filename];
+            if(id3v2) {
+                [_tags setObject:id3v2 forKey:STFileID3v2Type];
+                _defaultTag = [STFileID3v2Type retain];
+            }
+
+            [id3v1 release];
+            [id3v2 release];
         }
 
-        [id3v1 release];
-        [id3v2 release];
-        [dummy release];
-        [m4a release];
+        /* M4A/MP4/M4P files are all that should contain these... */
+        if([ext caseInsensitiveCompare:@"m4a"] == 0 ||
+           [ext caseInsensitiveCompare:@"mp4"] == 0 ||
+           [ext caseInsensitiveCompare:@"m4p"]) {
+            m4a = [[STTagM4A alloc] initFromFile:filename];
+            if(m4a) {
+                [_tags setObject:m4a forKey:STFileM4AType];
+            }
+
+            _defaultTag = [STFileM4AType retain];
+            [m4a release];
+        }
+
+        /* FLAC files are going to be all that will work here... */
+        if([ext caseInsensitiveCompare:@"flac"] == 0 ||
+           [ext caseInsensitiveCompare:@"fla"] == 0) {
+            flac = [[STTagFLAC alloc] initFromFile:filename];
+            if(flac) {
+                [_tags setObject:flac forKey:STFileFLACType];
+            }
+
+            _defaultTag = [STFileFLACType retain];
+            [flac release];
+        }
     }
 
     return self;
@@ -95,6 +126,7 @@ out_err:
 
 - (void)dealloc
 {
+    [_defaultTag release];
     [_filename release];
     [_tags release];
     [super dealloc];
@@ -107,21 +139,7 @@ out_err:
 
 - (id<STTag>)tag
 {
-    /* Prefer ID3v2 here over ID3v1 */
-    id<STTag> rv;
-
-    rv = [_tags objectForKey:STFileID3v2Type];
-    if(rv == nil) {
-        rv = [_tags objectForKey:STFileM4AType];
-        if(rv == nil) {
-            rv = [_tags objectForKey:STFileID3v1Type];
-            if(rv == nil) {
-                rv = [_tags objectForKey:@"__dummy__"];
-            }
-        }
-    }
-
-    return rv;
+    return [_tags objectForKey:_defaultTag];
 }
 
 @end /* @implementation STFile */
