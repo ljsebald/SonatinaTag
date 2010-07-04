@@ -23,13 +23,11 @@
              flags:(uint16_t)flags data:(NSData *)data
 {
     const char *bytes = [data bytes];
-    NSString *str = [[NSString alloc]initWithBytes:bytes
-                                            length:size
-                                          encoding:NSISOLatin1StringEncoding];
+    NSString *str = [[NSString alloc] initWithBytes:bytes
+                                             length:size
+                                           encoding:NSISOLatin1StringEncoding];
 
-    self = [super initWithType:type size:size flags:flags data:data];
-
-    if(self != nil) {
+    if((self = [super initWithType:type size:size flags:flags data:data])) {
         _url = [[NSURL alloc] initWithString:str];
     }
 

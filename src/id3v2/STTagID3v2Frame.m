@@ -23,10 +23,12 @@
 - (id)initWithType:(STTagID3v2_FrameCode)type size:(uint32_t)size
              flags:(uint16_t)flags data:(NSData *)data
 {
-    _frameType = type;
-    _size = size;
-    _flags = flags;
-    _rawFrame = [data retain];
+    if((self = [super init])) {
+        _frameType = type;
+        _size = size;
+        _flags = flags;
+        _rawFrame = [data retain];
+    }
 
     return self;
 }

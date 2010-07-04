@@ -53,6 +53,7 @@
     STTagDummy *dummy = nil;
     STTagFLAC *flac = nil;
     NSString *ext;
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     if((self = [super init]) != nil) {
         _filename = [filename retain];
@@ -78,12 +79,14 @@
             id3v1 = [[STTagID3v1 alloc] initFromFile:filename];
             if(id3v1) {
                 [_tags setObject:id3v1 forKey:STFileID3v1Type];
+                [_defaultTag release];
                 _defaultTag = [STFileID3v1Type retain];
             }
 
             id3v2 = [[STTagID3v2 alloc] initFromFile:filename];
             if(id3v2) {
                 [_tags setObject:id3v2 forKey:STFileID3v2Type];
+                [_defaultTag release];
                 _defaultTag = [STFileID3v2Type retain];
             }
 
@@ -94,10 +97,11 @@
         /* M4A/MP4/M4P files are all that should contain these... */
         if([ext caseInsensitiveCompare:@"m4a"] == 0 ||
            [ext caseInsensitiveCompare:@"mp4"] == 0 ||
-           [ext caseInsensitiveCompare:@"m4p"]) {
+           [ext caseInsensitiveCompare:@"m4p"] == 0) {
             m4a = [[STTagM4A alloc] initFromFile:filename];
             if(m4a) {
                 [_tags setObject:m4a forKey:STFileM4AType];
+                [_defaultTag release];
                 _defaultTag = [STFileM4AType retain];
             }
 
@@ -110,6 +114,7 @@
             flac = [[STTagFLAC alloc] initFromFile:filename];
             if(flac) {
                 [_tags setObject:flac forKey:STFileFLACType];
+                [_defaultTag release];
                 _defaultTag = [STFileFLACType retain];
             }
 
@@ -117,9 +122,11 @@
         }
     }
 
+    [pool drain];
     return self;
 
 out_err:
+    [pool drain];
     [self release];
     return nil;
 }

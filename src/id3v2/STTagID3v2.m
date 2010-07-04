@@ -322,6 +322,7 @@ out_close:
     NSString *fourccstr;
     NSData *framedata;
     uint32_t (*szf)(const uint8_t *) = &parse_size_23;
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     if(_majorver == 4) {
         szf = &parse_size_24;
@@ -521,10 +522,11 @@ out_close:
         }
     }
 
+    [pool drain];
     return self;
 
 out_err:
-    NSLog(@"Invalid ID3v2 frame");
+    [pool drain];
     [self release];
     return nil;
 }

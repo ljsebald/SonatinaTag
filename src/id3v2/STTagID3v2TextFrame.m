@@ -31,22 +31,18 @@ static NSStringEncoding encs[4] = {
 {
     const uint8_t *bytes = [data bytes];
 
-    /* Make sure the encoding is valid */
-    if(bytes[0] > STTAGID3V2_ENCODING_UTF8) {
-        NSLog(@"Invalid text encoding: %d", bytes[0]);
-        [self release];
-        return nil;
-    }
+    if((self = [super initWithType:type size:size flags:flags data:data])) {
+        /* Make sure the encoding is valid */
+        if(bytes[0] > STTAGID3V2_ENCODING_UTF8) {
+            [self release];
+            return nil;
+        }
 
-    self = [super initWithType:type size:size flags:flags data:data];
-    if(self == nil) {
-        return nil;
+        _encoding = bytes[0];
+        _text = [[NSString alloc] initWithBytes:bytes + 1
+                                         length:size - 1
+                                       encoding:encs[_encoding]];
     }
-
-    _encoding = bytes[0];
-    _text = [[NSString alloc] initWithBytes:bytes + 1
-                                     length:size - 1
-                                   encoding:encs[_encoding]];
 
     return self;
 }
