@@ -98,9 +98,9 @@
             m4a = [[STTagM4A alloc] initFromFile:filename];
             if(m4a) {
                 [_tags setObject:m4a forKey:STFileM4AType];
+                _defaultTag = [STFileM4AType retain];
             }
 
-            _defaultTag = [STFileM4AType retain];
             [m4a release];
         }
 
@@ -110,9 +110,9 @@
             flac = [[STTagFLAC alloc] initFromFile:filename];
             if(flac) {
                 [_tags setObject:flac forKey:STFileFLACType];
+                _defaultTag = [STFileFLACType retain];
             }
 
-            _defaultTag = [STFileFLACType retain];
             [flac release];
         }
     }
