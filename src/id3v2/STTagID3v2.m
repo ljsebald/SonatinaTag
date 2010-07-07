@@ -23,6 +23,7 @@
 #include "STTagID3v2Frame.h"
 #include "STTagID3v2TextFrame.h"
 #include "STTagID3v2URLFrame.h"
+#include "STTagID3v2PictureFrame.h"
 #include "NSStringExt.h"
 
 static uint32_t parse_size_22(const uint8_t *buf) {
@@ -501,6 +502,23 @@ out_close:
 
                 if(uframe != nil) {
                     [_frames setObject:uframe forKey:fourccstr];
+                }
+
+                break;
+            }
+
+            case FrameAttachedPicture:
+            case Frame22AttachedPicture:
+            {
+                STTagID3v2PictureFrame *pframe;
+
+                pframe = [STTagID3v2PictureFrame frameWithType:fourcc
+                                                          size:sz
+                                                         flags:flags
+                                                          data:framedata];
+
+                if(pframe != nil) {
+                    [_frames setObject:pframe forKey:fourccstr];
                 }
 
                 break;

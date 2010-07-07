@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A0A745811E3E17600EA50FF /* STTagID3v2PictureFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A0A745611E3E17600EA50FF /* STTagID3v2PictureFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A0A745911E3E17600EA50FF /* STTagID3v2PictureFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0A745711E3E17600EA50FF /* STTagID3v2PictureFrame.m */; };
 		2A7757BB11BDA7DB00B590C0 /* STTagM4A.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A7757B911BDA7DB00B590C0 /* STTagM4A.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A7757BC11BDA7DB00B590C0 /* STTagM4A.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7757BA11BDA7DB00B590C0 /* STTagM4A.m */; };
 		2A8921B711B9A58300F9EC90 /* STTagID3v2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A8921B511B9A58300F9EC90 /* STTagID3v2.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -33,6 +35,8 @@
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2A0A745611E3E17600EA50FF /* STTagID3v2PictureFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagID3v2PictureFrame.h; path = src/id3v2/STTagID3v2PictureFrame.h; sourceTree = "<group>"; };
+		2A0A745711E3E17600EA50FF /* STTagID3v2PictureFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagID3v2PictureFrame.m; path = src/id3v2/STTagID3v2PictureFrame.m; sourceTree = "<group>"; };
 		2A7757B911BDA7DB00B590C0 /* STTagM4A.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagM4A.h; path = src/m4a/STTagM4A.h; sourceTree = "<group>"; };
 		2A7757BA11BDA7DB00B590C0 /* STTagM4A.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagM4A.m; path = src/m4a/STTagM4A.m; sourceTree = "<group>"; };
 		2A8921B511B9A58300F9EC90 /* STTagID3v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagID3v2.h; path = src/id3v2/STTagID3v2.h; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 				2A89234A11B9EA4200F9EC90 /* STTagID3v2TextFrame.m */,
 				2A89236811B9F02200F9EC90 /* STTagID3v2URLFrame.h */,
 				2A89236911B9F02200F9EC90 /* STTagID3v2URLFrame.m */,
+				2A0A745611E3E17600EA50FF /* STTagID3v2PictureFrame.h */,
+				2A0A745711E3E17600EA50FF /* STTagID3v2PictureFrame.m */,
 			);
 			name = ID3v2;
 			sourceTree = "<group>";
@@ -211,6 +217,7 @@
 				2ACD087911BAD41B00983005 /* STTag.h in Headers */,
 				2A7757BB11BDA7DB00B590C0 /* STTagM4A.h in Headers */,
 				2AEB414211DCD8E9003C1658 /* STTagFLAC.h in Headers */,
+				2A0A745811E3E17600EA50FF /* STTagID3v2PictureFrame.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +286,7 @@
 				2ACD087411BAD21600983005 /* STFile.m in Sources */,
 				2A7757BC11BDA7DB00B590C0 /* STTagM4A.m in Sources */,
 				2AEB414911DCDAB2003C1658 /* STTagFLAC.m in Sources */,
+				2A0A745911E3E17600EA50FF /* STTagID3v2PictureFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
