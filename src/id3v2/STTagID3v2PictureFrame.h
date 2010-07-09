@@ -22,6 +22,31 @@
 #import <Foundation/Foundation.h>
 #include <SonatinaTag/STTagID3v2Frame.h>
 
+typedef enum STTagPictureType_e {
+    STTagPictureType_Other              = 0,
+    STTagPictureType_SmallIcon          = 1,
+    STTagPictureType_OtherIcon          = 2,
+    STTagPictureType_FrontCover         = 3,
+    STTagPictureType_BackCover          = 4,
+    STTagPictureType_Leaflet            = 5,
+    STTagPictureType_Media              = 6,
+    STTagPictureType_LeadArtist         = 7,
+    STTagPictureType_Artist             = 8,
+    STTagPictureType_Conductor          = 9,
+    STTagPictureType_Band               = 10,
+    STTagPictureType_Composer           = 11,
+    STTagPictureType_Lyricist           = 12,
+    STTagPictureType_RecordingLocation  = 13,
+    STTagPictureType_DuringRecording    = 14,
+    STTagPictureType_DuringPerformance  = 15,
+    STTagPictureType_ScreenCapture      = 16,
+    STTagPictureType_ABrightColoredFish = 17,
+    STTagPictureType_Illustration       = 18,
+    STTagPictureType_ArtistLogo         = 19,
+    STTagPictureType_PublisherLogo      = 20,
+    STTagPictureType_MAX                = 20
+} STTagPictureType;
+
 @interface STTagID3v2PictureFrame : STTagID3v2Frame {
 @private
     uint8_t _textEncoding;

@@ -21,7 +21,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol STTag
+@protocol STTag <NSObject>
 - (id)initFromFile:(NSString *)filename;
 
 - (NSString *)title;
@@ -29,6 +29,8 @@
 - (NSString *)album;
 - (NSString *)year;
 - (NSString *)comment;
+
+- (NSData *)artwork;
 
 - (int)trackNumber;
 - (int)discNumber;

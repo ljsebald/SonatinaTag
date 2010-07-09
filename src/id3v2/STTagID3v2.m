@@ -265,6 +265,16 @@ out_close:
     }
 }
 
+- (NSData *)artwork
+{
+    if(_majorver == 2) {
+        return [[self frameForKey:Frame22AttachedPicture] pictureData];
+    }
+    else {
+        return [[self frameForKey:FrameAttachedPicture] pictureData];
+    }
+}
+
 - (NSString *)genre
 {
     if(_majorver == 2) {

@@ -196,6 +196,8 @@ typedef enum STTagID3v1_Genre_e {
 - (NSString *)year;
 - (NSString *)comment;
 
+- (NSData *)artwork;
+
 - (uint8_t)genre;
 - (int)trackNumber;
 - (int)discNumber;

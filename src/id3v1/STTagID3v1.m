@@ -170,6 +170,11 @@ out_rel:
     return _comment;
 }
 
+- (NSData *)artwork
+{
+    return nil;
+}
+
 - (uint8_t)genre
 {
     return _genre;

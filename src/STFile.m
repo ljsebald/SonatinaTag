@@ -38,6 +38,8 @@
 - (NSString *)year;
 - (NSString *)comment;
 
+- (NSData *)artwork;
+
 - (int)trackNumber;
 - (int)discNumber;
 
@@ -192,6 +194,11 @@ out_err:
 - (NSString *)comment
 {
     return @"";
+}
+
+- (NSData *)artwork
+{
+    return nil;
 }
 
 - (int)trackNumber

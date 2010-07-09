@@ -79,6 +79,8 @@ typedef enum STTagM4A_AtomCode_e {
 - (NSString *)year;
 - (NSString *)comment;
 
+- (NSData *)artwork;
+
 - (NSString *)genre;
 - (int)trackNumber;
 - (int)discNumber;

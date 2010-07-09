@@ -20,13 +20,13 @@
 #include <stdlib.h>
 
 #include "STTagFLAC.h"
+#include "STTagFLACPicture.h"
 
 #define METADATA_TYPE_VORBIS_COMMENT    4
+#define METADATA_TYPE_PICTURE           6
 
 @interface STTagFLAC (internal)
-
 - (id)parseComments;
-
 @end /* @interface STTagFLAC (internal) */
 
 @implementation STTagFLAC
@@ -39,6 +39,8 @@
     int done = 0;
     uint8_t block_type;
     uint32_t block_len;
+    NSData *tmp;
+    STTagFLACPicture *pic;
 
     if((self = [super init]) == nil) {
         return nil;
@@ -61,8 +63,14 @@
         goto out_close;
     }
 
+    /* Create the storage for any pictures */
+    _pictures = [[NSMutableArray alloc] initWithCapacity:0];
+    if(!_pictures) {
+        goto out_close;
+    }
+
     /* Loop through the metadata blocks until we find a VORBIS_COMMENT one. */
-    while(!done && !_rawtag) {
+    while(!done) {
         if(fread(buf, 1, 4, fp) != 4) {
             goto out_close;
         }
@@ -73,8 +81,9 @@
         /* See if this is the last one */
         done = buf[0] & 0x80;
 
-        /* If this isn't a VORBIS_COMMENT, skip it. */
-        if(block_type != METADATA_TYPE_VORBIS_COMMENT) {
+        /* If this isn't a type we care about, skip it. */
+        if(block_type != METADATA_TYPE_VORBIS_COMMENT &&
+           block_type != METADATA_TYPE_PICTURE) {
             fseek(fp, (long)block_len, SEEK_CUR);
             continue;
         }
@@ -90,12 +99,34 @@
             goto out_close;
         }
 
-        /* The _rawtag object will free the memory when its done */
-        _rawtag = [[NSData alloc] initWithBytesNoCopy:tag
+        if(block_type == METADATA_TYPE_VORBIS_COMMENT) {
+            /* The _rawtag object will free the memory when its done */
+            _rawtag = [[NSData alloc] initWithBytesNoCopy:tag
+                                                   length:block_len
+                                             freeWhenDone:YES];
+            if(_rawtag == nil) {
+                goto out_close;
+            }
+        }
+        else if(block_type == METADATA_TYPE_PICTURE) {
+            /* Make the data object we need to parse the picture */
+            tmp = [[NSData alloc] initWithBytesNoCopy:tag
                                                length:block_len
                                          freeWhenDone:YES];
-        if(_rawtag == nil) {
-            goto out_close;
+
+            if(tmp == nil) {
+                goto out_close;
+            }
+
+            /* Parse it out */
+            pic = [[STTagFLACPicture alloc] initWithData:tmp];
+
+            if(pic) {
+                [_pictures addObject:pic];
+                [pic release];
+            }
+
+            [tmp release];
         }
     }
 
@@ -123,6 +154,7 @@ out_close:
 - (void)dealloc
 {
     [_rawtag release];
+    [_pictures release];
     [_vorbisComments release];
     [super dealloc];
 }
@@ -150,6 +182,15 @@ out_close:
 - (NSString *)comment
 {
     return [_vorbisComments objectForKey:@"description"];
+}
+
+- (NSData *)artwork
+{
+    if([_pictures count] > 0) {
+        return [[_pictures objectAtIndex:0] pictureData];
+    }
+
+    return nil;
 }
 
 - (int)trackNumber

@@ -16,33 +16,39 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-#ifndef STTagFLAC_h
-#define STTagFLAC_h
+#ifndef STTagFLACPicture_h
+#define STTagFLACPicture_h
 
 #import <Foundation/Foundation.h>
-#include <SonatinaTag/STTag.h>
 
-@interface STTagFLAC : NSObject<STTag> {
+/* Grab the picture types */
+#include <SonatinaTag/STTagID3v2PictureFrame.h>
+
+@interface STTagFLACPicture : NSObject {
 @private
-    NSMutableDictionary *_vorbisComments;
-    NSMutableArray *_pictures;
-    NSData *_rawtag;
+    uint32_t _pictureType;
+    NSString *_mimeType;
+    NSString *_description;
+    uint32_t _width;
+    uint32_t _height;
+    uint32_t _bitDepth;
+    uint32_t _indexUsed;
+    NSData *_pictureData;
 }
 
-- (id)initFromFile:(NSString *)file;
+- (id)initWithData:(NSData *)data;
 - (void)dealloc;
 
-- (NSString *)title;
-- (NSString *)artist;
-- (NSString *)album;
-- (NSString *)year;
-- (NSString *)comment;
+- (uint32_t)pictureType;
+- (NSString *)mimeType;
+- (NSString *)description;
+- (uint32_t)width;
+- (uint32_t)height;
+- (uint32_t)bitDepth;
+- (uint32_t)indexUsed;
 
-- (NSData *)artwork;
+- (NSData *)pictureData;
 
-- (int)trackNumber;
-- (int)discNumber;
+@end /* @interface STTagFLACPicture */
 
-@end /* @interface STTagFLAC */
-
-#endif /* !STTagFLAC_h */
+#endif /* !STTagFLACPicture_h */

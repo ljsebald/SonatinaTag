@@ -85,6 +85,11 @@
                                   encoding:NSUTF8StringEncoding] autorelease];
 }
 
+- (NSData *)artwork
+{
+    return [self atomForKey:AtomCoverArt];
+}
+
 - (NSString *)genre
 {
     return [[[NSString alloc] initWithData:[self atomForKey:AtomGenre]

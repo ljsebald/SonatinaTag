@@ -62,6 +62,8 @@ typedef enum STTagID3v2_FrameCode_e STTagID3v2_FrameCode;
 - (NSString *)year;
 - (NSString *)comment;
 
+- (NSData *)artwork;
+
 - (NSString *)genre;
 - (int)trackNumber;
 - (int)discNumber;
