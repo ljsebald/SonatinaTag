@@ -57,70 +57,62 @@
     NSString *ext;
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-    if((self = [super init]) != nil) {
+    if((self = [super init])) {
         _filename = [filename retain];
         ext = [filename pathExtension];
 
         /* Make our storage for tags */
         _tags = [[NSMutableDictionary alloc] initWithCapacity:0];
         if(_tags == nil) {
-            [self release];
+            goto out_err;
         }
 
         /* Allocate a dummy tag, in case all else fails... */
-        dummy = [[STTagDummy alloc] initFromFile:filename];
+        dummy = [[[STTagDummy alloc] initFromFile:filename] autorelease];
         if(dummy) {
             [_tags setObject:dummy forKey:@"__dummy__"];
         }
 
         _defaultTag = [@"__dummy__" retain];
-        [dummy release];
 
         /* Assume for now that MP3 files are all that contain ID3 tags... */
         if([ext caseInsensitiveCompare:@"mp3"] == 0) {
-            id3v1 = [[STTagID3v1 alloc] initFromFile:filename];
+            id3v1 = [[[STTagID3v1 alloc] initFromFile:filename] autorelease];
             if(id3v1) {
                 [_tags setObject:id3v1 forKey:STFileID3v1Type];
                 [_defaultTag release];
                 _defaultTag = [STFileID3v1Type retain];
             }
 
-            id3v2 = [[STTagID3v2 alloc] initFromFile:filename];
+            id3v2 = [[[STTagID3v2 alloc] initFromFile:filename] autorelease];
             if(id3v2) {
                 [_tags setObject:id3v2 forKey:STFileID3v2Type];
                 [_defaultTag release];
                 _defaultTag = [STFileID3v2Type retain];
             }
-
-            [id3v1 release];
-            [id3v2 release];
         }
 
         /* M4A/MP4/M4P files are all that should contain these... */
         if([ext caseInsensitiveCompare:@"m4a"] == 0 ||
            [ext caseInsensitiveCompare:@"mp4"] == 0 ||
            [ext caseInsensitiveCompare:@"m4p"] == 0) {
-            m4a = [[STTagM4A alloc] initFromFile:filename];
+            m4a = [[[STTagM4A alloc] initFromFile:filename] autorelease];
             if(m4a) {
                 [_tags setObject:m4a forKey:STFileM4AType];
                 [_defaultTag release];
                 _defaultTag = [STFileM4AType retain];
             }
-
-            [m4a release];
         }
 
         /* FLAC files are going to be all that will work here... */
         if([ext caseInsensitiveCompare:@"flac"] == 0 ||
            [ext caseInsensitiveCompare:@"fla"] == 0) {
-            flac = [[STTagFLAC alloc] initFromFile:filename];
+            flac = [[[STTagFLAC alloc] initFromFile:filename] autorelease];
             if(flac) {
                 [_tags setObject:flac forKey:STFileFLACType];
                 [_defaultTag release];
                 _defaultTag = [STFileFLACType retain];
             }
-
-            [flac release];
         }
     }
 

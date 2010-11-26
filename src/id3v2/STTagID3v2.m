@@ -48,7 +48,7 @@ static uint32_t parse_size_24(const uint8_t *buf) {
 
 @interface STTagID3v2 (Internal)
 
-- (id)parseFrames;
+- (BOOL)parseFrames;
 
 @end /* @interface STTagID3v2 */
 
@@ -183,7 +183,13 @@ static uint32_t parse_size_24(const uint8_t *buf) {
     }
 
     /* Parse all frames */
-    return [self parseFrames];
+    if([self parseFrames]) {
+        return self;
+    }
+    else {
+        [self release];
+        return nil;
+    }
 
 out_close:
     [self release];
@@ -325,7 +331,7 @@ out_close:
 
 @implementation STTagID3v2 (Internal)
 
-- (id)parseFrames
+- (BOOL)parseFrames
 {
     uint32_t fourcc, sz, start = 0;
     uint16_t flags;
@@ -551,12 +557,11 @@ out_close:
     }
 
     [pool drain];
-    return self;
+    return YES;
 
 out_err:
     [pool drain];
-    [self release];
-    return nil;
+    return NO;
 }
 
 @end /* @implementation STTagID3v2 (Internal) */

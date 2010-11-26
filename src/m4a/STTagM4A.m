@@ -23,7 +23,7 @@
 
 @interface STTagM4A (Internal)
 
-- (id)parseFile:(FILE *)fp;
+- (BOOL)parseFile:(FILE *)fp;
 - (BOOL)findAtom:(uint32_t)atom inFile:(FILE *)fp containerSize:(uint64_t)cz
             size:(uint64_t *)patomsz;
 
@@ -46,7 +46,13 @@
         return nil;
     }
 
-    return [self parseFile:fp];
+    if([self parseFile:fp]) {
+        return self;
+    }
+    else {
+        [self release];
+        return nil;
+    }
 }
 
 - (void)dealloc
@@ -131,7 +137,7 @@
 
 @implementation STTagM4A (Internal)
 
-- (id)parseFile:(FILE *)fp
+- (BOOL)parseFile:(FILE *)fp
 {
     uint8_t buf[16];
     uint32_t fourcc;
@@ -281,14 +287,13 @@ doneAtom:
     }
 
     fclose(fp);
-    return self;
+    return YES;
     
 out_close:
     fclose(fp);
 
 out_err:
-    [self release];
-    return nil;
+    return NO;
 }
 
 - (BOOL)findAtom:(uint32_t)atom inFile:(FILE *)fp containerSize:(uint64_t)cz

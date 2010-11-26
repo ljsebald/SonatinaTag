@@ -26,7 +26,7 @@
 #define METADATA_TYPE_PICTURE           6
 
 @interface STTagFLAC (internal)
-- (id)parseComments;
+- (BOOL)parseComments;
 @end /* @interface STTagFLAC (internal) */
 
 @implementation STTagFLAC
@@ -143,7 +143,13 @@
     /* Allocate the dictionary to hold comments. */
     _vorbisComments = [[NSMutableDictionary alloc] initWithCapacity:1];
 
-    return [self parseComments];
+    if([self parseComments]) {
+        return self;
+    }
+    else {
+        [self release];
+        return nil;
+    }
 
 out_close:
     [self release];
@@ -221,7 +227,7 @@ out_close:
 
 @implementation STTagFLAC (internal)
 
-- (id)parseComments
+- (BOOL)parseComments
 {
     const uint8_t *buf = [_rawtag bytes];
     uint32_t start = 0, sz, count;
@@ -265,7 +271,7 @@ out_close:
     }
 
     [pool drain];
-    return self;
+    return YES;
 }
 
 @end /* @implementation STTagFLAC (internal) */
