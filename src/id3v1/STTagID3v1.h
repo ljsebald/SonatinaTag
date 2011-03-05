@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -187,20 +187,30 @@ typedef enum STTagID3v1_Genre_e {
     uint8_t _track;
 }
 
+- (id)init;
 - (id)initFromFile:(NSString *)file;
 - (void)dealloc;
+
+- (BOOL)writeToFile:(NSString *)file error:(NSError **)err;
 
 - (NSString *)title;
 - (NSString *)artist;
 - (NSString *)album;
 - (NSString *)year;
 - (NSString *)comment;
-
 - (NSData *)artwork;
-
 - (uint8_t)genre;
 - (int)trackNumber;
 - (int)discNumber;
+
+/* Methods for building up new ID3v1 tags. */
+- (void)setTitle:(NSString *)title;
+- (void)setArtist:(NSString *)artist;
+- (void)setAlbum:(NSString *)album;
+- (void)setYear:(NSString *)year;
+- (void)setComment:(NSString *)comment;
+- (void)setGenre:(uint8_t)genre;
+- (void)setTrackNumber:(int)trackNumber;
 
 @end /* @interface STTagID3v1 */
 

@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,8 @@
 #include <ctype.h>
 
 #include "STTagID3v1.h"
+#include "NSStringExt.h"
+#include "NSErrorExt.h"
 
 struct __ID3v1Tag {
     char magic[3];
@@ -39,13 +41,18 @@ struct __ID3v1Tag {
 
 @implementation STTagID3v1
 
+/* Completely pointless initializer, just for the sake of completeness. */
+- (id)init
+{
+    return (self = [super init]);
+}
+
 - (id)initFromFile:(NSString *)file
 {
     FILE *fp;
     struct __ID3v1Tag tag;
     NSString *tmp;
     NSCharacterSet *set = [NSCharacterSet whitespaceCharacterSet];
-    const char *yr;
 
     if((self = [super init]) == nil) {
         return nil;
@@ -114,10 +121,7 @@ struct __ID3v1Tag {
     }
 
     /* Check the year for validity */
-    yr = [_year cStringUsingEncoding:NSISOLatin1StringEncoding];
-    
-    if(strlen(yr) != 4 || !isnumber(yr[0]) || !isnumber(yr[1]) ||
-       !isnumber(yr[2]) || !isnumber(yr[3])) {
+    if(![_year isValidYear] && [_year UTF8String][0]) {
         goto out_rel;
     }
 
@@ -143,6 +147,177 @@ out_rel:
     [_comment release];
     [_year release];
     [super dealloc];
+}
+
+- (BOOL)writeToFile:(NSString *)file error:(NSError **)err
+{
+    FILE *fp;
+    struct __ID3v1Tag tag = { 0 };
+    BOOL rv = YES;
+
+    /* Open up the file for reading and writing. */
+    fp = fopen([file fileSystemRepresentation], "r+b");
+    if(!fp) {
+        if(err) {
+            *err = [NSError errorWithDomain:SonatinaTagErrorDomain
+                                       code:STError_OpeningFile
+                                     reason:@"Cannot open file"];
+        }
+
+        rv = NO;
+        goto out;
+    }
+
+    /* Go to the position where the ID3v1 should be in the file. */
+    if(fseek(fp, -128, SEEK_END)) {
+        if(err) {
+            *err = [NSError errorWithDomain:SonatinaTagErrorDomain
+                                       code:STError_IOError
+                                     reason:@"I/O Error: Cannot seek"];
+        }
+
+        rv = NO;
+        goto out_close;
+    }
+
+    /* Read in what should be the magic header, if its there */
+    if(fread(tag.magic, 1, 3, fp) != 3) {
+        if(err) {
+            *err = [NSError errorWithDomain:SonatinaTagErrorDomain
+                                       code:STError_IOError
+                                     reason:@"I/O Error: Cannot read"];
+        }
+
+        rv = NO;
+        goto out_close;
+    }
+
+    if(tag.magic[0] != 'T' || tag.magic[1] != 'A' || tag.magic[2] != 'G') {
+        /* No magic value, so we assume the tag isn't actually present. */
+        if(fseek(fp, 0, SEEK_END)) {
+            if(err) {
+                *err = [NSError errorWithDomain:SonatinaTagErrorDomain
+                                           code:STError_IOError
+                                         reason:@"I/O Error: Cannot seek"];
+            }
+
+            rv = NO;
+            goto out_close;
+        }
+
+        tag.magic[0] = 'T';
+        tag.magic[1] = 'A';
+        tag.magic[2] = 'G';
+    }
+    else {
+        /* We have a tag, reposition to the end so we overwrite the old tag. */
+        if(fseek(fp, -128, SEEK_END)) {
+            if(err) {
+                *err = [NSError errorWithDomain:SonatinaTagErrorDomain
+                                           code:STError_IOError
+                                         reason:@"I/O Error: Cannot seek"];
+            }
+
+            rv = NO;
+            goto out_close;
+        }
+    }
+
+    /* Fill in the tag. */
+    if(![_title getCString:tag.title maxLength:30
+                  encoding:NSISOLatin1StringEncoding]) {
+        if(err) {
+            *err = [NSError errorWithDomain:SonatinaTagErrorDomain
+                                       code:STError_CharConvert
+                                     reason:@"Invalid character in title"];
+        }
+
+        rv = NO;
+        goto out_close;
+    }
+
+    if(![_artist getCString:tag.artist maxLength:30
+                   encoding:NSISOLatin1StringEncoding]) {
+        if(err) {
+            *err = [NSError errorWithDomain:SonatinaTagErrorDomain
+                                       code:STError_CharConvert
+                                     reason:@"Invalid character in artist"];
+        }
+
+        rv = NO;
+        goto out_close;
+    }
+
+    if(![_album getCString:tag.album maxLength:30
+                  encoding:NSISOLatin1StringEncoding]) {
+        if(err) {
+            *err = [NSError errorWithDomain:SonatinaTagErrorDomain
+                                       code:STError_CharConvert
+                                     reason:@"Invalid character in album"];
+        }
+
+        rv = NO;
+        goto out_close;
+    }
+
+    if(![_comment getCString:tag.comment_field.comment maxLength:30
+                    encoding:NSISOLatin1StringEncoding]) {
+        if(err) {
+            *err = [NSError errorWithDomain:SonatinaTagErrorDomain
+                                       code:STError_CharConvert
+                                     reason:@"Invalid character in comment"];
+        }
+
+        rv = NO;
+        goto out_close;
+    }
+
+    if(_year) {
+        if(![_year isValidYear]) {
+            if(err) {
+                *err = [NSError errorWithDomain:SonatinaTagErrorDomain
+                                           code:STError_CharConvert
+                                         reason:@"Invalid character in year"];
+            }
+
+            rv = NO;
+            goto out_close;
+        }
+
+        memcpy(tag.year, [_year UTF8String], 4);
+    }
+    
+    tag.genre = _genre;
+
+    /* Fill in the track if we have one */
+    if(_track) {
+        tag.comment_field.v1_1.zero = 0;
+        tag.comment_field.v1_1.track = _track;
+    }
+
+    /* Write it out to the file... */
+    if(fwrite(&tag, 1, 128, fp) != 128) {
+        /* Uhh... *gulp* This is bad! */
+        if(err) {
+            *err = [NSError errorWithDomain:SonatinaTagErrorDomain
+                                       code:STError_IOError
+                                     reason:@"I/O Error: Cannot write"];
+        }
+
+        rv = NO;
+        goto out_close;
+    }
+
+    /* If we got here, we have no errors, so note that if the user sent in a
+       NSError pointer */
+    if(err) {
+        *err = nil;
+    }
+
+out_close:
+    fclose(fp);
+out:
+    return rv;
 }
 
 - (NSString *)title
@@ -188,6 +363,42 @@ out_rel:
 - (int)discNumber
 {
     return 1;
+}
+
+/* Methods for building up new ID3v1 tags. */
+- (void)setTitle:(NSString *)title
+{
+    _title = [title retain];
+}
+
+- (void)setArtist:(NSString *)artist
+{
+    _artist = [artist retain];
+}
+
+- (void)setAlbum:(NSString *)album
+{
+    _album = [album retain];
+}
+
+- (void)setYear:(NSString *)year
+{
+    _year = [year retain];
+}
+
+- (void)setComment:(NSString *)comment
+{
+    _comment = [comment retain];
+}
+
+- (void)setGenre:(uint8_t)genre
+{
+    _genre = genre;
+}
+
+- (void)setTrackNumber:(int)trackNumber
+{
+    _track = (uint8_t)trackNumber;
 }
 
 @end /* @implementation STTagID3v1 */
