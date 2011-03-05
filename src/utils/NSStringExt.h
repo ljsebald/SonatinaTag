@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -25,6 +25,8 @@
 
 - (id)initWith4CC:(uint32_t)fourcc;
 + (id)stringWith4CC:(uint32_t)fourcc;
+
+- (BOOL)isValidYear;
 
 @end /* @interface NSString (SonatinaTagExtensions) */
 

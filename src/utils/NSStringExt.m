@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -16,6 +16,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
+#include <ctype.h>
 #include "NSStringExt.h"
 
 @implementation NSString (SonatinaTagExtensions)
@@ -47,5 +48,18 @@
 
     return [NSString stringWithUTF8String:str];
 }
+
+- (BOOL)isValidYear
+{
+    const char *tmp = [self cStringUsingEncoding:NSISOLatin1StringEncoding];
+
+    if(tmp && strlen(tmp) == 4 && isnumber(tmp[0]) && isnumber(tmp[1]) &&
+       isnumber(tmp[2]) && isnumber(tmp[3])) {
+        return YES;
+    }
+
+    return NO;
+}
+        
 
 @end /* @implementation NSString (SonatinaTagExtensions) */
