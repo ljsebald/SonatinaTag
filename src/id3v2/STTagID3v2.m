@@ -234,6 +234,11 @@ out_close:
     return [self frameForKey:fourcc index:0];
 }
 
+- (NSUInteger)frameCountForKey:(STTagID3v2_FrameCode)fourcc
+{
+    return [[_frames objectForKey:[NSString stringWith4CC:fourcc]] count];
+}
+
 - (int)id3v2MajorVersion
 {
     return (int)_majorver;

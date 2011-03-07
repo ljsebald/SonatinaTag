@@ -56,6 +56,7 @@ typedef enum STTagID3v2_FrameCode_e STTagID3v2_FrameCode;
 
 - (id)frameForKey:(STTagID3v2_FrameCode)fourcc index:(NSUInteger)i;
 - (id)frameForKey:(STTagID3v2_FrameCode)fourcc;
+- (NSUInteger)frameCountForKey:(STTagID3v2_FrameCode)fourcc;
 
 - (int)id3v2MajorVersion;
 - (int)id3v2Revision;
