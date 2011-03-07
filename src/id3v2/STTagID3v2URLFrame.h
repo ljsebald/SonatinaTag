@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -34,6 +34,7 @@
 - (void)dealloc;
 
 - (NSURL *)URL;
+- (void)setURL:(NSURL *)url;
 
 @end /* @interface STTagID3v2URLFrame */
 

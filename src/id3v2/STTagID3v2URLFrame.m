@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -53,6 +53,15 @@
 - (NSURL *)URL
 {
     return _url;
+}
+
+- (void)setURL:(NSURL *)url
+{
+    NSString *tmp;
+
+    [_url autorelease];
+    tmp = [url absoluteString];
+    [self setFrame:[tmp dataUsingEncoding:NSISOLatin1StringEncoding]];
 }
 
 @end /* @implementation STTagID3v2URLFrame */

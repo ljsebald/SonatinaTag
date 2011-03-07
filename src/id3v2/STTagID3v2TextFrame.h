@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -33,6 +33,8 @@
     NSString *_text;
 }
 
+- (id)initWithType:(STTagID3v2_FrameCode)type;
+
 - (id)initWithType:(STTagID3v2_FrameCode)type size:(uint32_t)size
              flags:(uint16_t)flags data:(NSData *)data;
 + (id)frameWithType:(STTagID3v2_FrameCode)type size:(uint32_t)size
@@ -41,6 +43,9 @@
 
 - (uint8_t)encoding;
 - (NSString *)text;
+
+- (void)setText:(NSString *)s;
+- (void)setText:(NSString *)s encoding:(uint8_t)enc;
 
 @end /* @interface STTagID3v2TextFrame */
 

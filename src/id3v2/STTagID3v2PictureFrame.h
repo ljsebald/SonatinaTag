@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -56,6 +56,8 @@ typedef enum STTagPictureType_e {
     NSData *_pictureData;
 }
 
+- (id)initWithType:(STTagID3v2_FrameCode)type;
+
 - (id)initWithType:(STTagID3v2_FrameCode)type size:(uint32_t)size
              flags:(uint16_t)flags data:(NSData *)data;
 + (id)frameWithType:(STTagID3v2_FrameCode)type size:(uint32_t)size
@@ -67,6 +69,10 @@ typedef enum STTagPictureType_e {
 - (uint8_t)pictureType;
 - (NSString *)description;
 - (NSData *)pictureData;
+
+- (void)setDescription:(NSString *)s;
+- (void)setDescription:(NSString *)s encoding:(uint8_t)enc;
+- (void)setPicture:(NSData *)d ofType:(uint8_t)type mimeType:(NSString *)mime;
 
 @end /* @interface STTagID3v2PictureFrame */
 

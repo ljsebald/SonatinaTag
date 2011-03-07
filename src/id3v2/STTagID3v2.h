@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -48,6 +48,9 @@ typedef enum STTagID3v2_FrameCode_e STTagID3v2_FrameCode;
     uint32_t _size;
 }
 
+- (id)initWithVersion:(uint8_t)majorver revision:(uint8_t)minorver;
++ (id)tagWithVersion:(uint8_t)majorver revision:(uint8_t)minorver;
+
 - (id)initFromFile:(NSString *)file;
 - (void)dealloc;
 
@@ -67,6 +70,10 @@ typedef enum STTagID3v2_FrameCode_e STTagID3v2_FrameCode;
 - (NSString *)genre;
 - (int)trackNumber;
 - (int)discNumber;
+
+- (void)addFrame:(STTagID3v2Frame *)f;
+- (BOOL)writeToFile:(NSString *)file error:(NSError **)err;
+- (BOOL)writeToData:(NSMutableData *)d error:(NSError **)err;
 
 @end /* @interface STTagID3v2 */
 

@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -25,6 +25,7 @@
 #include "STTagID3v2URLFrame.h"
 #include "STTagID3v2PictureFrame.h"
 #include "NSStringExt.h"
+#include "NSErrorExt.h"
 
 static uint32_t parse_size_22(const uint8_t *buf) {
     /* The size is in big endian order, 3-bytes long */
@@ -53,6 +54,23 @@ static uint32_t parse_size_24(const uint8_t *buf) {
 @end /* @interface STTagID3v2 */
 
 @implementation STTagID3v2
+
+- (id)initWithVersion:(uint8_t)majorver revision:(uint8_t)minorver
+{
+    if((self = [super init])) {
+        _majorver = majorver;
+        _revision = minorver;
+        _frames = [[NSMutableDictionary alloc] init];
+    }
+
+    return self;
+}
+
++ (id)tagWithVersion:(uint8_t)majorver revision:(uint8_t)minorver
+{
+    return [[[self alloc] initWithVersion:majorver revision:minorver]
+            autorelease];
+}
 
 - (id)initFromFile:(NSString *)file
 {
@@ -327,6 +345,54 @@ out_close:
     return [disc intValue];
 }
 
+- (void)addFrame:(STTagID3v2Frame *)f
+{
+    [_frames setObject:f forKey:[NSString stringWith4CC:[f type]]];
+}
+
+- (BOOL)writeToFile:(NSString *)fn error:(NSError **)err
+{
+    BOOL rv;
+    NSMutableData *d = [[NSMutableData alloc] init];
+
+    rv = [self writeToData:d error:err];
+
+    if(rv) {
+        rv = [d writeToFile:fn options:NSAtomicWrite error:err];
+    }
+
+    [d release];
+    return rv;
+}
+
+- (BOOL)writeToData:(NSMutableData *)d error:(NSError **)err
+{
+    long size = 0;
+    uint8_t hdr[10] = { 'I', 'D', '3', _majorver, _revision, _flags, 0 };
+    int hdrlen = _majorver > 2 ? 10 : 6;
+
+    /* Write the header (with 0 for size for now) */
+    [d appendBytes:hdr length:hdrlen];
+
+    /* Put each frame in the file */
+    for(id frame in [_frames allValues]) {
+        if(![frame appendToData:d withVersion:_majorver error:err]) {
+            return NO;
+        }
+
+        size += [frame size] + hdrlen;
+    }
+
+    /* We now have the total size, so write it in the header */
+    hdr[6] = (size >> 21) & 0x7F;
+    hdr[7] = (size >> 14) & 0x7F;
+    hdr[8] = (size >> 7) & 0x7F;
+    hdr[9] = size & 0x7F;
+    [d replaceBytesInRange:NSMakeRange(6, 4) withBytes:hdr + 6];
+
+    return YES;
+}
+
 @end /* @implementation STTagID3v2 */
 
 @implementation STTagID3v2 (Internal)
@@ -552,7 +618,6 @@ out_close:
                     [_frames setObject:frame forKey:fourccstr];
                 }
             }
-                
         }
     }
 

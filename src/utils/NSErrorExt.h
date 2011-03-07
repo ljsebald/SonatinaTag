@@ -24,9 +24,10 @@
 #define SonatinaTagErrorDomain  @"SonatinaTag"
 
 enum SonatinaTagErrorCodes {
-    STError_OpeningFile = -1,
-    STError_IOError     = -2,
-    STError_CharConvert = -3
+    STError_OpeningFile     = -1,
+    STError_IOError         = -2,
+    STError_CharConvert     = -3,
+    STError_InvalidParam    = -4
 };
 
 @interface NSError (SonatinaTagExtensions)

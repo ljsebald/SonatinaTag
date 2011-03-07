@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -210,6 +210,9 @@ typedef enum STTagID3v2_FrameCode_e STTagID3v2_FrameCode;
     NSData *_rawFrame;
 }
 
+- (id)initWithType:(STTagID3v2_FrameCode)type;
++ (id)frameWithType:(STTagID3v2_FrameCode)type;
+
 - (id)initWithType:(STTagID3v2_FrameCode)type size:(uint32_t)size
              flags:(uint16_t)flags data:(NSData *)data;
 + (id)frameWithType:(STTagID3v2_FrameCode)type size:(uint32_t)size
@@ -221,6 +224,13 @@ typedef enum STTagID3v2_FrameCode_e STTagID3v2_FrameCode;
 - (uint32_t)size;
 - (uint16_t)flags;
 - (NSData *)frame;
+
+- (void)setFlags:(uint16_t)f;
+- (void)setFrame:(NSData *)d;
+
+- (BOOL)appendToData:(NSMutableData *)d
+         withVersion:(int)version
+               error:(NSError **)err;
 
 @end /* @interface STTagID3v2Frame */
 

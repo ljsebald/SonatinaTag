@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,21 @@ static NSStringEncoding encs[4] = {
     NSUTF8StringEncoding
 };
 
+@interface STTagID3v2TextFrame (Internal)
+- (void)rebuildRawFrame;
+@end /* @interface STTAGID3v2TextFrame (Internal) */
+
 @implementation STTagID3v2TextFrame
+
+- (id)initWithType:(STTagID3v2_FrameCode)type
+{
+    if((self = [super initWithType:type])) {
+        _encoding = STTAGID3V2_ENCODING_ISO8859_1;
+    }
+
+    return self;
+}
+
 - (id)initWithType:(STTagID3v2_FrameCode)type size:(uint32_t)size
              flags:(uint16_t)flags data:(NSData *)data
 {
@@ -74,4 +88,45 @@ static NSStringEncoding encs[4] = {
     return [_text stringByTrimmingCharactersInSet:s];
 }
 
+- (void)setText:(NSString *)s
+{
+    [self setText:s encoding:STTAGID3V2_ENCODING_ISO8859_1];
+}
+
+- (void)setText:(NSString *)s encoding:(uint8_t)enc
+{
+    [_text autorelease];
+    _text = [s retain];
+
+    /* Make sure the encoding's valid, or punt and pick ISO-8859-1 */
+    if(enc <= STTAGID3V2_ENCODING_UTF8) {
+        _encoding = enc;
+    }
+    else {
+        _encoding = STTAGID3V2_ENCODING_ISO8859_1;
+    }
+
+    if(_text) {
+        [self rebuildRawFrame];
+    }
+}
+
 @end /* @implementation STTagID3v2TextFrame */
+
+@implementation STTagID3v2TextFrame (Internal)
+
+- (void)rebuildRawFrame
+{
+    NSData *d;
+    NSData *ds = [_text dataUsingEncoding:encs[_encoding]
+                     allowLossyConversion:YES];
+    uint8_t tmp[[ds length] + 1];
+
+    tmp[0] = _encoding;
+    [ds getBytes:tmp + 1 length:[ds length]];
+
+    d = [[NSData alloc] initWithBytes:tmp length:[ds length] + 1];
+    [self setFrame:d];
+}
+
+@end /* @implementation STTagID3v2TextFrame (Internal) */
