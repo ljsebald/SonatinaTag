@@ -222,11 +222,16 @@ out_close:
     [super dealloc];
 }
 
-- (id)frameForKey:(STTagID3v2_FrameCode)fourcc
+- (id)frameForKey:(STTagID3v2_FrameCode)fourcc index:(NSUInteger)i
 {
     NSString *str = [NSString stringWith4CC:fourcc];
 
-    return [_frames objectForKey:str];
+    return [[_frames objectForKey:str] objectAtIndex:i];
+}
+
+- (id)frameForKey:(STTagID3v2_FrameCode)fourcc
+{
+    return [self frameForKey:fourcc index:0];
 }
 
 - (int)id3v2MajorVersion
@@ -347,7 +352,20 @@ out_close:
 
 - (void)addFrame:(STTagID3v2Frame *)f
 {
-    [_frames setObject:f forKey:[NSString stringWith4CC:[f type]]];
+    NSString *s = [NSString stringWith4CC:[f type]];
+    NSMutableArray *a = [_frames objectForKey:s];
+
+    /* Did the object already exist in the dictionary? */
+    if(a) {
+        /* Append this new item to the end. */
+        [a addObject:f];
+    }
+    else {
+        /* Create a new item and add it to the dictionary */
+        a = [NSMutableArray arrayWithCapacity:1];
+        [a addObject:f];
+        [_frames setObject:a forKey:s];
+    }
 }
 
 - (BOOL)writeToFile:(NSString *)fn error:(NSError **)err
@@ -375,12 +393,14 @@ out_close:
     [d appendBytes:hdr length:hdrlen];
 
     /* Put each frame in the file */
-    for(id frame in [_frames allValues]) {
-        if(![frame appendToData:d withVersion:_majorver error:err]) {
-            return NO;
-        }
+    for(id array in [_frames allValues]) {
+        for(id frame in array) {
+            if(![frame appendToData:d withVersion:_majorver error:err]) {
+                return NO;
+            }
 
-        size += [frame size] + hdrlen;
+            size += [frame size] + hdrlen;
+        }
     }
 
     /* We now have the total size, so write it in the header */
@@ -554,7 +574,7 @@ out_close:
                                                        data:framedata];
 
                 if(tframe != nil) {
-                    [_frames setObject:tframe forKey:fourccstr];
+                    [self addFrame:tframe];
                 }
 
                 break;
@@ -583,7 +603,7 @@ out_close:
                                                       data:framedata];
 
                 if(uframe != nil) {
-                    [_frames setObject:uframe forKey:fourccstr];
+                    [self addFrame:uframe];
                 }
 
                 break;
@@ -600,7 +620,7 @@ out_close:
                                                           data:framedata];
 
                 if(pframe != nil) {
-                    [_frames setObject:pframe forKey:fourccstr];
+                    [self addFrame:pframe];
                 }
 
                 break;
@@ -615,7 +635,7 @@ out_close:
                                                  flags:flags
                                                   data:framedata];
                 if(frame != nil) {
-                    [_frames setObject:frame forKey:fourccstr];
+                    [self addFrame:frame];
                 }
             }
         }
