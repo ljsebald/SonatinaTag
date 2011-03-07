@@ -43,6 +43,10 @@
 - (int)trackNumber;
 - (int)discNumber;
 
+- (id)commentForKey:(NSString *)key index:(NSUInteger)i;
+- (id)commentForKey:(NSString *)key;
+- (NSUInteger)commentCountForKey:(NSString *)key;
+
 @end /* @interface STTagFLAC */
 
 #endif /* !STTagFLAC_h */

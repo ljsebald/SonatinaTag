@@ -167,27 +167,27 @@ out_close:
 
 - (NSString *)title
 {
-    return [_vorbisComments objectForKey:@"title"];
+    return [self commentForKey:@"title"];
 }
 
 - (NSString *)artist
 {
-    return [_vorbisComments objectForKey:@"artist"];
+    return [self commentForKey:@"artist"];
 }
 
 - (NSString *)album
 {
-    return [_vorbisComments objectForKey:@"album"];
+    return [self commentForKey:@"album"];
 }
 
 - (NSString *)year
 {
-    return [_vorbisComments objectForKey:@"date"];
+    return [self commentForKey:@"date"];
 }
 
 - (NSString *)comment
 {
-    return [_vorbisComments objectForKey:@"description"];
+    return [self commentForKey:@"description"];
 }
 
 - (NSData *)artwork
@@ -201,7 +201,7 @@ out_close:
 
 - (int)trackNumber
 {
-    NSString *n = [_vorbisComments objectForKey:@"tracknumber"];
+    NSString *n = [self commentForKey:@"tracknumber"];
 
     if(n) {
         return [n intValue];
@@ -213,13 +213,46 @@ out_close:
 
 - (int)discNumber
 {
-    NSString *n = [_vorbisComments objectForKey:@"discnumber"];
+    NSString *n = [self commentForKey:@"discnumber"];
 
     if(n) {
         return [n intValue];
     }
     else {
         return 1;
+    }
+}
+
+- (id)commentForKey:(NSString *)key index:(NSUInteger)i
+{    
+    return [[_vorbisComments objectForKey:key] objectAtIndex:i];
+}
+
+- (id)commentForKey:(NSString *)key
+{
+    return [self commentForKey:key index:0];
+}
+
+- (NSUInteger)commentCountForKey:(NSString *)key
+{
+    return [[_vorbisComments objectForKey:key] count];
+}
+
+- (void)addComment:(NSString *)comment key:(NSString *)key
+{
+    NSString *lkey = [key lowercaseString];
+    NSMutableArray *a = [_vorbisComments objectForKey:lkey];
+
+    /* Did the object already exist in the dictionary? */
+    if(a) {
+        /* Append this new item to the end. */
+        [a addObject:comment];
+    }
+    else {
+        /* Create a new item and add it to the dictionary */
+        a = [NSMutableArray arrayWithCapacity:1];
+        [a addObject:comment];
+        [_vorbisComments setObject:a forKey:lkey];
     }
 }
 
@@ -262,8 +295,7 @@ out_close:
 
         /* Add the comment to the list */
         if([kv count] == 2) {
-            [_vorbisComments setValue:[kv objectAtIndex:1]
-                               forKey:[[kv objectAtIndex:0] lowercaseString]];
+            [self addComment:[kv objectAtIndex:1] key:[kv objectAtIndex:0]];
         }
 
         [tmp release];
