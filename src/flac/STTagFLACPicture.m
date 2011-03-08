@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -17,8 +17,26 @@
 */
 
 #include "STTagFLACPicture.h"
+#include <arpa/inet.h>
+
+#define METADATA_TYPE_PICTURE           6
 
 @implementation STTagFLACPicture
+
+- (id)init
+{
+    if((self = [super init])) {
+        _description = [[NSString alloc] init];
+        _mimeType = [[NSString alloc] init];
+    }
+
+    return self;
+}
+
++ (id)flacPicture
+{
+    return [[[self alloc] init] autorelease];
+}
 
 - (id)initWithData:(NSData *)data
 {
@@ -130,6 +148,80 @@
 - (NSData *)pictureData
 {
     return _pictureData;
+}
+
+- (void)setPictureData:(NSData *)d
+                ofType:(uint32_t)type
+                  mime:(NSString *)mime
+           description:(NSString *)desc
+                 width:(uint32_t)w
+                height:(uint32_t)h
+                   bpp:(uint32_t)bpp
+             indexUsed:(uint32_t)index
+{
+    _pictureData = [d retain];
+    _pictureType = type;
+    _mimeType = [mime retain];
+    _description = [desc retain];
+    _width = w;
+    _height = h;
+    _bitDepth = bpp;
+    _indexUsed = index;
+}
+
+- (BOOL)appendToData:(NSMutableData *)d error:(NSError **)err
+{
+    uint32_t tmp;
+    NSData *tmpdata = [_mimeType dataUsingEncoding:NSASCIIStringEncoding
+                              allowLossyConversion:YES];
+    uint32_t size = 0;
+    uint32_t start = [d length];
+    uint8_t hdr[4] = { METADATA_TYPE_PICTURE, 0, 0, 0 };
+
+    /* Write out the header with a blank size for now */
+    [d appendBytes:hdr length:4];
+
+    /* Write out the type... */
+    tmp = htonl(_pictureType);
+    [d appendBytes:&tmp length:4];
+    size += 4;
+
+    /* MIME type */
+    tmp = htonl([tmpdata length]);
+    [d appendBytes:&tmp length:4];
+    [d appendData:tmpdata];
+    size += 4 + [tmpdata length];
+
+    /* Description */
+    tmpdata = [_description dataUsingEncoding:NSUTF8StringEncoding];
+    tmp = htonl([tmpdata length]);
+    [d appendBytes:&tmp length:4];
+    [d appendData:tmpdata];
+    size += 4 + [tmpdata length];
+
+    /* Image characteristics */
+    tmp = htonl(_width);
+    [d appendBytes:&tmp length:4];
+    tmp = htonl(_height);
+    [d appendBytes:&tmp length:4];
+    tmp = htonl(_bitDepth);
+    [d appendBytes:&tmp length:4];
+    tmp = htonl(_indexUsed);
+    [d appendBytes:&tmp length:4];
+    size += 16;
+
+    /* Image data */
+    tmp = htonl([_pictureData length]);
+    [d appendBytes:&tmp length:4];
+    [d appendData:_pictureData];
+    size += 4 + [_pictureData length];
+
+    /* Fix the size in the header */
+    hdr[1] = size >> 16;
+    hdr[2] = size >> 8;
+    hdr[3] = size;
+    [d replaceBytesInRange:NSMakeRange(start + 1, 3) withBytes:hdr + 1];
+    return YES;
 }
 
 @end /* @implementation STTagFLACPicture */

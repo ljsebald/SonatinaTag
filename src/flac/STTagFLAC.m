@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -30,6 +30,18 @@
 @end /* @interface STTagFLAC (internal) */
 
 @implementation STTagFLAC
+
+- (id)init
+{
+    if((self = [super init])) {
+        _vorbisComments = [[NSMutableDictionary alloc] init];
+        _pictures = [[NSMutableArray alloc] init];
+
+        [_vorbisComments setObject:@"SonatinaTag" forKey:@"vendor"];
+    }
+
+    return self;
+}
 
 - (id)initFromFile:(NSString *)file
 {
@@ -238,6 +250,11 @@ out_close:
     return [[_vorbisComments objectForKey:key] count];
 }
 
+- (void)addPicture:(STTagFLACPicture *)p
+{
+    [_pictures addObject:p];
+}
+
 - (void)addComment:(NSString *)comment key:(NSString *)key
 {
     NSString *lkey = [key lowercaseString];
@@ -254,6 +271,89 @@ out_close:
         [a addObject:comment];
         [_vorbisComments setObject:a forKey:lkey];
     }
+}
+
+- (BOOL)writeToData:(NSMutableData *)d lastMeta:(BOOL)l error:(NSError **)err
+{
+    uint8_t hdr[4] = { METADATA_TYPE_VORBIS_COMMENT, 0, 0, 0 }, buf[4];
+    uint32_t size = 0, count = 0, countpos, tmp;
+    NSString *vendor = [_vorbisComments objectForKey:@"vendor"];
+    NSData *tmpdata = [vendor dataUsingEncoding:NSUTF8StringEncoding];
+    uint32_t start;
+
+    /* Write out all of the picture data first */
+    for(STTagFLACPicture *p in _pictures) {
+        if(![p appendToData:d error:err]) {
+            return NO;
+        }
+    }
+
+    /* Record where we're starting from... */
+    start = [d length];
+
+    /* Is this the last metadata block? */
+    if(l) {
+        hdr[0] |= 0x80;
+    }
+
+    /* Write the metadata block header with a blank size for now */
+    [d appendBytes:hdr length:4];
+
+    /* Write the header of the vorbis comment (bleh! little endian stuff) */
+    size = [tmpdata length];
+    buf[0] = size;
+    buf[1] = size >> 8;
+    buf[2] = size >> 16;
+    buf[3] = size >> 24;
+    [d appendBytes:buf length:4];
+    [d appendData:tmpdata];
+
+    /* Save where we need to write the number of metadata strings... */
+    countpos = start + size + 8;
+    size += 8;
+    [d appendBytes:&count length:4];
+
+    /* Put each comment in the file */
+    for(NSString *key in _vorbisComments) {
+        if(![key isEqualToString:@"vendor"]) {
+            NSArray *array = [_vorbisComments objectForKey:key];
+
+            for(id comment in array) {
+                NSString *str = [NSString stringWithFormat:@"%@=%@",
+                                 [key uppercaseString], comment];
+                const char *sbuf = [str UTF8String];
+
+                /* Figure out the length (little endian) */
+                tmp = [str length];
+                buf[0] = tmp;
+                buf[1] = tmp >> 8;
+                buf[2] = tmp >> 16;
+                buf[3] = tmp >> 24;
+
+                /* Write the length and the comment */
+                [d appendBytes:buf length:4];
+                [d appendBytes:sbuf length:tmp];
+
+                size += tmp + 4;
+                ++count;
+            }
+        }
+    }
+
+    /* We now have the total size, so write it in the header */
+    hdr[1] = size >> 16;
+    hdr[2] = size >> 8;
+    hdr[3] = size;
+    [d replaceBytesInRange:NSMakeRange(start + 1, 3) withBytes:hdr + 1];
+
+    /* Write the count of items... */
+    buf[0] = count;
+    buf[1] = count >> 8;
+    buf[2] = count >> 16;
+    buf[3] = count >> 24;
+    [d replaceBytesInRange:NSMakeRange(countpos, 4) withBytes:buf];
+
+    return YES;
 }
 
 @end /* @implementation STTagFLAC */

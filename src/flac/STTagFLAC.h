@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -22,12 +22,16 @@
 #import <Foundation/Foundation.h>
 #include <SonatinaTag/STTag.h>
 
+@class STTagFLACPicture;
+
 @interface STTagFLAC : NSObject<STTag> {
 @private
     NSMutableDictionary *_vorbisComments;
     NSMutableArray *_pictures;
     NSData *_rawtag;
 }
+
+- (id)init;
 
 - (id)initFromFile:(NSString *)file;
 - (void)dealloc;
@@ -46,6 +50,10 @@
 - (id)commentForKey:(NSString *)key index:(NSUInteger)i;
 - (id)commentForKey:(NSString *)key;
 - (NSUInteger)commentCountForKey:(NSString *)key;
+
+- (void)addPicture:(STTagFLACPicture *)p;
+- (void)addComment:(NSString *)comment key:(NSString *)key;
+- (BOOL)writeToData:(NSMutableData *)d lastMeta:(BOOL)l error:(NSError **)err;
 
 @end /* @interface STTagFLAC */
 

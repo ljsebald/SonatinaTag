@@ -1,6 +1,6 @@
 /*
     SonatinaTag
-    Copyright (C) 2010 Lawrence Sebald
+    Copyright (C) 2010, 2011 Lawrence Sebald
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -36,6 +36,9 @@
     NSData *_pictureData;
 }
 
+- (id)init;
++ (id)flacPicture;
+
 - (id)initWithData:(NSData *)data;
 - (void)dealloc;
 
@@ -48,6 +51,16 @@
 - (uint32_t)indexUsed;
 
 - (NSData *)pictureData;
+
+- (void)setPictureData:(NSData *)d
+                ofType:(uint32_t)type
+                  mime:(NSString *)mime
+           description:(NSString *)desc
+                 width:(uint32_t)w
+                height:(uint32_t)h
+                   bpp:(uint32_t)bpp
+             indexUsed:(uint32_t)index;
+- (BOOL)appendToData:(NSMutableData *)d error:(NSError **)err;
 
 @end /* @interface STTagFLACPicture */
 
