@@ -60,6 +60,12 @@
 
     return NO;
 }
-        
+
+- (unsigned int)indexOfCharacter:(unichar) c
+{
+    NSString *s = [NSString stringWithCharacters:&c length:1];
+    NSRange r = [self rangeOfString:s];
+    return r.location;
+}
 
 @end /* @implementation NSString (SonatinaTagExtensions) */

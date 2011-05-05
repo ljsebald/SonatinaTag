@@ -21,6 +21,7 @@
 
 #include "STTagFLAC.h"
 #include "STTagFLACPicture.h"
+#include "NSStringExt.h"
 
 #define METADATA_TYPE_VORBIS_COMMENT    4
 #define METADATA_TYPE_PICTURE           6
@@ -365,8 +366,8 @@ out_close:
     const uint8_t *buf = [_rawtag bytes];
     uint32_t start = 0, sz, count;
     NSString *tmp;
-    NSArray *kv;
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    unsigned int loc;
 
     /* The first part of the Vorbis Comment is the vendor of the encoder. */
     sz = buf[0] | (buf[1] << 8) | (buf[2] << 16) | (buf[3] << 24);
@@ -391,11 +392,13 @@ out_close:
         tmp = [[NSString alloc] initWithBytes:buf + start + 4
                                        length:sz
                                      encoding:NSUTF8StringEncoding];
-        kv = [tmp componentsSeparatedByString:@"="];
+
+        loc = [tmp indexOfCharacter:(unichar)'='];
 
         /* Add the comment to the list */
-        if([kv count] == 2) {
-            [self addComment:[kv objectAtIndex:1] key:[kv objectAtIndex:0]];
+        if(loc != (unsigned int)NSNotFound) {
+            [self addComment:[tmp substringFromIndex:loc + 1]
+                         key:[tmp substringToIndex:loc]];
         }
 
         [tmp release];

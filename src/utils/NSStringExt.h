@@ -27,6 +27,7 @@
 + (id)stringWith4CC:(uint32_t)fourcc;
 
 - (BOOL)isValidYear;
+- (unsigned int)indexOfCharacter:(unichar)c;
 
 @end /* @interface NSString (SonatinaTagExtensions) */
 
