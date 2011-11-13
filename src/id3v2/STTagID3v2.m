@@ -24,6 +24,7 @@
 #include "STTagID3v2TextFrame.h"
 #include "STTagID3v2URLFrame.h"
 #include "STTagID3v2PictureFrame.h"
+#include "STTagID3v2CommentFrame.h"
 #include "NSStringExt.h"
 #include "NSErrorExt.h"
 
@@ -418,6 +419,11 @@ out_close:
     return YES;
 }
 
+- (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc
+{
+    return [self frameForKey:fc];
+}
+
 @end /* @implementation STTagID3v2 */
 
 @implementation STTagID3v2 (Internal)
@@ -626,6 +632,23 @@ out_close:
 
                 if(pframe != nil) {
                     [self addFrame:pframe];
+                }
+
+                break;
+            }
+
+            case FrameComments:
+            case Frame22Comments:
+            {
+                STTagID3v2CommentFrame *cframe;
+
+                cframe = [STTagID3v2CommentFrame frameWithType:fourcc
+                                                          size:sz
+                                                         flags:flags
+                                                          data:framedata];
+
+                if(cframe != nil) {
+                    [self addFrame:cframe];
                 }
 
                 break;

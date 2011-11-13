@@ -21,7 +21,10 @@
 
 #import <Foundation/Foundation.h>
 
+#include <SonatinaTag/STTagID3v2Frame.h>
+
 @protocol STTag <NSObject>
+@required
 - (id)initFromFile:(NSString *)filename;
 
 - (NSString *)title;
@@ -34,6 +37,10 @@
 
 - (int)trackNumber;
 - (int)discNumber;
+
+@optional
+- (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc;
+
 @end /* @protocol STTag */
 
 #endif /* !STTag_h */

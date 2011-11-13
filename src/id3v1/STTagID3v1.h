@@ -213,6 +213,8 @@ typedef enum STTagID3v1_Genre_e {
 - (void)setGenre:(uint8_t)genre;
 - (void)setTrackNumber:(int)trackNumber;
 
+- (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc;
+
 + (NSArray *)genres;
 + (NSString *)stringForGenre:(STTagID3v1_Genre)genre;
 

@@ -19,6 +19,8 @@
 #include <ctype.h>
 
 #include "STTagID3v1.h"
+#include "STTagID3v2TextFrame.h"
+#include "STTagID3v2CommentFrame.h"
 #include "NSStringExt.h"
 #include "NSErrorExt.h"
 
@@ -432,6 +434,82 @@ out:
 - (void)setTrackNumber:(int)trackNumber
 {
     _track = (uint8_t)trackNumber;
+}
+
+- (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc
+{
+    STTagID3v2TextFrame *tf;
+    STTagID3v2CommentFrame *cf;
+
+    switch(fc) {
+        case FrameTitle:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:_title];
+            return [tf autorelease];
+
+        case FrameLeadPerformer:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:_artist];
+            return [tf autorelease];
+
+        case FrameAlbumTitle:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:_album];
+            return [tf autorelease];
+
+        case FrameYear:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+            
+            [tf setText:_year];
+            return [tf autorelease];
+
+        case FrameTrackNumber:
+            if(_track) {
+                tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+                if(!tf) {
+                    return nil;
+                }
+
+                [tf setText:[NSString stringWithFormat:@"%d", (int)_track]];
+                return [tf autorelease];
+            }
+            else {
+                return nil;
+            }
+
+        case FrameComments:
+            cf = [[STTagID3v2CommentFrame alloc] initWithType:fc];
+
+            if(!cf) {
+                return nil;
+            }
+
+            [cf setText:_comment];
+            return [cf autorelease];
+    }
+
+    /* Nothing that we know about, so return nil */
+    return nil;
 }
 
 + (NSArray *)genres

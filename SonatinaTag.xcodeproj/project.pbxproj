@@ -13,6 +13,8 @@
 		2A0B2F211320B573007FC663 /* NSErrorExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B2F1F1320B573007FC663 /* NSErrorExt.m */; };
 		2A0C03D811E794C200056E43 /* STTagFLACPicture.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A0C03D611E794C200056E43 /* STTagFLACPicture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A0C03D911E794C200056E43 /* STTagFLACPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C03D711E794C200056E43 /* STTagFLACPicture.m */; };
+		2A1932CD147047B300CD2FEF /* STTagID3v2CommentFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A1932CB147047B300CD2FEF /* STTagID3v2CommentFrame.h */; };
+		2A1932CE147047B300CD2FEF /* STTagID3v2CommentFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1932CC147047B300CD2FEF /* STTagID3v2CommentFrame.m */; };
 		2A7757BB11BDA7DB00B590C0 /* STTagM4A.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A7757B911BDA7DB00B590C0 /* STTagM4A.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A7757BC11BDA7DB00B590C0 /* STTagM4A.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7757BA11BDA7DB00B590C0 /* STTagM4A.m */; };
 		2A8921B711B9A58300F9EC90 /* STTagID3v2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A8921B511B9A58300F9EC90 /* STTagID3v2.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -45,6 +47,8 @@
 		2A0B2F1F1320B573007FC663 /* NSErrorExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSErrorExt.m; path = src/utils/NSErrorExt.m; sourceTree = "<group>"; };
 		2A0C03D611E794C200056E43 /* STTagFLACPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagFLACPicture.h; path = src/flac/STTagFLACPicture.h; sourceTree = "<group>"; };
 		2A0C03D711E794C200056E43 /* STTagFLACPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagFLACPicture.m; path = src/flac/STTagFLACPicture.m; sourceTree = "<group>"; };
+		2A1932CB147047B300CD2FEF /* STTagID3v2CommentFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagID3v2CommentFrame.h; path = src/id3v2/STTagID3v2CommentFrame.h; sourceTree = "<group>"; };
+		2A1932CC147047B300CD2FEF /* STTagID3v2CommentFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagID3v2CommentFrame.m; path = src/id3v2/STTagID3v2CommentFrame.m; sourceTree = "<group>"; };
 		2A7757B911BDA7DB00B590C0 /* STTagM4A.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagM4A.h; path = src/m4a/STTagM4A.h; sourceTree = "<group>"; };
 		2A7757BA11BDA7DB00B590C0 /* STTagM4A.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagM4A.m; path = src/m4a/STTagM4A.m; sourceTree = "<group>"; };
 		2A8921B511B9A58300F9EC90 /* STTagID3v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagID3v2.h; path = src/id3v2/STTagID3v2.h; sourceTree = "<group>"; };
@@ -162,6 +166,8 @@
 			children = (
 				2A8921B511B9A58300F9EC90 /* STTagID3v2.h */,
 				2A8921B611B9A58300F9EC90 /* STTagID3v2.m */,
+				2A1932CB147047B300CD2FEF /* STTagID3v2CommentFrame.h */,
+				2A1932CC147047B300CD2FEF /* STTagID3v2CommentFrame.m */,
 				2A8922DC11B9E01D00F9EC90 /* STTagID3v2Frame.h */,
 				2A8922DD11B9E01D00F9EC90 /* STTagID3v2Frame.m */,
 				2A89234911B9EA4200F9EC90 /* STTagID3v2TextFrame.h */,
@@ -232,6 +238,7 @@
 				2A0A745811E3E17600EA50FF /* STTagID3v2PictureFrame.h in Headers */,
 				2A0C03D811E794C200056E43 /* STTagFLACPicture.h in Headers */,
 				2A0B2F201320B573007FC663 /* NSErrorExt.h in Headers */,
+				2A1932CD147047B300CD2FEF /* STTagID3v2CommentFrame.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +317,7 @@
 				2A0A745911E3E17600EA50FF /* STTagID3v2PictureFrame.m in Sources */,
 				2A0C03D911E794C200056E43 /* STTagFLACPicture.m in Sources */,
 				2A0B2F211320B573007FC663 /* NSErrorExt.m in Sources */,
+				2A1932CE147047B300CD2FEF /* STTagID3v2CommentFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

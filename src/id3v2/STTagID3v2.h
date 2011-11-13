@@ -77,6 +77,8 @@ typedef enum STTagID3v2_FrameCode_e STTagID3v2_FrameCode;
 - (BOOL)writeToFile:(NSString *)file error:(NSError **)err;
 - (BOOL)writeToData:(NSMutableData *)d error:(NSError **)err;
 
+- (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc;
+
 @end /* @interface STTagID3v2 */
 
 #endif /* !STTagID3v2_h */
