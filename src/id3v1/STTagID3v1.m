@@ -22,7 +22,7 @@
 #include "NSStringExt.h"
 #include "NSErrorExt.h"
 
-struct __ID3v1Tag {
+struct ST_ID3v1Tag {
     char magic[3];
     char title[30];
     char artist[30];
@@ -39,6 +39,39 @@ struct __ID3v1Tag {
     uint8_t genre;
 } __attribute__((packed));
 
+/* List of Genres -- English only */
+static NSString *id3_genres[ID3v1GenreMax + 1] = {
+    @"Blues", @"Classic Rock", @"Country", @"Dance", @"Disco", @"Funk",
+    @"Grunge", @"Hip-Hop", @"Jazz", @"Metal", @"New Age", @"Oldies", @"Other",
+    @"Pop", @"R&B", @"Rap", @"Reggae", @"Rock", @"Techno", @"Industrial",
+    @"Alternative", @"Ska", @"Death Metal", @"Pranks", @"Soundtrack",
+    @"Euro-Techno", @"Ambient", @"Trip-Hop", @"Vocal", @"Jazz-Funk", @"Fusion",
+    @"Trance", @"Classical", @"Instrumental", @"Acid", @"House", @"Game",
+    @"Sound Clip", @"Gospel", @"Noise", @"AlternRock", @"Bass", @"Soul",
+    @"Punk", @"Space", @"Meditative", @"Instrumental Pop", @"Instrumental Rock",
+    @"Ethnic", @"Gothic", @"Darkwave", @"Techno-Industrial", @"Electronic",
+    @"Pop-Folk", @"Eurodance", @"Dream", @"Southern Rock", @"Comedy", @"Cult",
+    @"Gangsta", @"Top 40", @"Christian Rap", @"Pop/Funk", @"Jungle",
+    @"Native American", @"Cabaret", @"New Wave", @"Psychadelic", @"Rave",
+    @"Showtunes", @"Trailer", @"Lo-Fi", @"Tribal", @"Acid Punk", @"Acid Jazz",
+    @"Polka", @"Retro", @"Musical", @"Rock & Roll", @"Hard Rock",
+    
+    /* The rest of these were Winamp extensions */
+    @"Folk", @"Folk-Rock", @"National Folk", @"Swing", @"Fast Fusion", @"Bebob",
+    @"Latin", @"Revival", @"Celtic", @"Bluegrass", @"Avantgarde",
+    @"Gothic Rock", @"Progressive Rock", @"Psychadelic Rock", @"Symphonic Rock",
+    @"Slow Rock", @"Big Band", @"Chorus", @"Easy Listening", @"Acoustic",
+    @"Humour", @"Speech", @"Chanson", @"Opera", @"Chamber Music", @"Sonata",
+    @"Symphony", @"Booty Bass", @"Primus", @"Porn Groove", @"Satire",
+    @"Slow Jam", @"Club", @"Tango", @"Samba", @"Folklore", @"Ballad",
+    @"Power Ballad", @"Rhythmic Soul", @"Freestyle", @"Duet", @"Punk Rock",
+    @"Drum Solo", @"Acapella", @"Euro-House", @"Dance Hall", @"Goa",
+    @"Drum & Bass", @"Club-House", @"Hardcore", @"Terror", @"Indie", @"BritPop",
+    @"Negerpunk", @"Polsk Punk", @"Beat", @"Christian Gangsta", @"Heavy Metal",
+    @"Black Metal", @"Crossover", @"Contemporary", @"Christian Rock",
+    @"Merengue", @"Salsa", @"Thrash Metal", @"Anime", @"JPop", @"SynthPop"
+};
+
 @implementation STTagID3v1
 
 /* Completely pointless initializer, just for the sake of completeness. */
@@ -50,7 +83,7 @@ struct __ID3v1Tag {
 - (id)initFromFile:(NSString *)file
 {
     FILE *fp;
-    struct __ID3v1Tag tag;
+    struct ST_ID3v1Tag tag;
     NSString *tmp;
     NSCharacterSet *set = [NSCharacterSet whitespaceCharacterSet];
 
@@ -152,7 +185,7 @@ out_rel:
 - (BOOL)writeToFile:(NSString *)file error:(NSError **)err
 {
     FILE *fp;
-    struct __ID3v1Tag tag = { 0 };
+    struct ST_ID3v1Tag tag = { 0 };
     BOOL rv = YES;
 
     /* Open up the file for reading and writing. */
@@ -399,6 +432,20 @@ out:
 - (void)setTrackNumber:(int)trackNumber
 {
     _track = (uint8_t)trackNumber;
+}
+
++ (NSArray *)genres
+{
+    return [NSArray arrayWithObjects:id3_genres count:ID3v1GenreMax + 1];
+}
+
++ (NSString *)stringForGenre:(STTagID3v1_Genre)genre
+{
+    if(genre < ID3v1GenreMin || genre > ID3v1GenreMax) {
+        return nil;
+    }
+
+    return [NSString stringWithString:id3_genres[(int)genre]];
 }
 
 @end /* @implementation STTagID3v1 */

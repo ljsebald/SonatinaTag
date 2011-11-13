@@ -23,6 +23,7 @@
 #include <SonatinaTag/STTag.h>
 
 typedef enum STTagID3v1_Genre_e {
+    ID3v1GenreMin = 0,
     ID3v1GenreBlues = 0,
     ID3v1GenreClassicRock,
     ID3v1GenreCountry,
@@ -161,7 +162,7 @@ typedef enum STTagID3v1_Genre_e {
     ID3v1GenreNegerpunk,
     ID3v1GenrePolskPunk,
     ID3v1GenreBeat,
-    ID3v1GenreChristian,
+    ID3v1GenreChristianGangsta,
     ID3v1GenreHeavyMetal,
     ID3v1GenreBlackMetal,
     ID3v1GenreCrossover,
@@ -172,8 +173,8 @@ typedef enum STTagID3v1_Genre_e {
     ID3v1GenreThrashMetal,
     ID3v1GenreAnime,
     ID3v1GenreJPop,
-    ID3v1GenreSynthpop,
-    ID3v1GenreMax = ID3v1GenreSynthpop
+    ID3v1GenreSynthPop,
+    ID3v1GenreMax = ID3v1GenreSynthPop
 } STTagID3v1_Genre;
 
 @interface STTagID3v1 : NSObject<STTag> {
@@ -211,6 +212,9 @@ typedef enum STTagID3v1_Genre_e {
 - (void)setComment:(NSString *)comment;
 - (void)setGenre:(uint8_t)genre;
 - (void)setTrackNumber:(int)trackNumber;
+
++ (NSArray *)genres;
++ (NSString *)stringForGenre:(STTagID3v1_Genre)genre;
 
 @end /* @interface STTagID3v1 */
 
