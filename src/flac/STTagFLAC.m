@@ -364,7 +364,7 @@ out_close:
 {
     STTagID3v2TextFrame *tf;
     STTagID3v2CommentFrame *cf;
-    NSString *val;
+    NSString *val, *val2;
 
     switch(fc) {
         case FrameLeadPerformer:
@@ -380,8 +380,17 @@ out_close:
             goto text_frame;
 
         case FrameTrackNumber:
-            /* XXXX */
             val = [self commentForKey:@"tracknumber"];
+            val2 = [self commentForKey:@"totaltracks"];
+
+            if(!val2) {
+                val2 = [self commentForKey:@"tracktotal"];
+            }
+
+            if(val2) {
+                val = [NSString stringWithFormat:@"%@/%@", val, val2];
+            }
+
             goto text_frame;
 
         case FrameReleaseTime:
@@ -411,8 +420,17 @@ out_close:
             goto text_frame;
 
         case FramePartOfSet:
-            /* XXXX */
             val = [self commentForKey:@"discnumber"];
+            val2 = [self commentForKey:@"totaldiscs"];
+            
+            if(!val2) {
+                val2 = [self commentForKey:@"disctotal"];
+            }
+            
+            if(val2) {
+                val = [NSString stringWithFormat:@"%@/%@", val, val2];
+            }
+
             goto text_frame;
 
         case FrameBPM:
@@ -452,8 +470,12 @@ out_close:
             goto text_frame;
 
         case FramePublisher:
-            /* XXXX */
             val = [self commentForKey:@"label"];
+
+            if(!val) {
+                val = [self commentForKey:@"organization"];
+            }
+
             goto text_frame;
 
         case FrameLyricist:

@@ -4,8 +4,8 @@ What is SonatinaTag?
 --------------------
 SonatinaTag is a music file tag reading framework written in Objective C,
 targeted mainly at Mac OS X. Currently it supports reading tags from MP3 files
-(both ID3v1 and ID3v2), as well as from M4A files (iTunes-style tags are the
-only ones currently supported for M4A).
+(both ID3v1 and ID3v2), M4A files (iTunes-style tags are the only ones currently
+supported for M4A), and FLAC files (Vorbis comments and Picture metadata).
 
 Why SonatinaTag?
 ----------------
@@ -34,7 +34,7 @@ would build just fine for Mac OS X 10.4 (and probably even 10.3).
 License (see COPYING for the full license)
 ------------------------------------------
 SonatinaTag
-Copyright (C) 2010 Lawrence Sebald
+Copyright (C) 2010, 2011 Lawrence Sebald
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
