@@ -281,7 +281,7 @@ out_close:
 {
     uint8_t hdr[4] = { METADATA_TYPE_VORBIS_COMMENT, 0, 0, 0 }, buf[4];
     uint32_t size = 0, count = 0, countpos, tmp;
-    NSString *vendor = [_vorbisComments objectForKey:@"vendor"];
+    NSString *vendor = [self commentForKey:@"vendor"];
     NSData *tmpdata = [vendor dataUsingEncoding:NSUTF8StringEncoding];
     uint32_t start;
 
