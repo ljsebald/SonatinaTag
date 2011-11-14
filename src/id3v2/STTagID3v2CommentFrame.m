@@ -73,9 +73,6 @@ static NSStringEncoding encs[4] = {
         _text = [[NSString alloc] initWithBytes:bytes + len
                                          length:size - len
                                        encoding:encs[_encoding]];
-
-        NSLog(@"encoding: %d, language: %@, desc: %@, text: %@",
-              (int)_encoding, _language, _description, _text);
     }
 
     return self;

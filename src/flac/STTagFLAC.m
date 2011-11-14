@@ -23,6 +23,9 @@
 #include "STTagFLACPicture.h"
 #include "NSStringExt.h"
 
+#include "STTagID3v2TextFrame.h"
+#include "STTagID3v2CommentFrame.h"
+
 #define METADATA_TYPE_VORBIS_COMMENT    4
 #define METADATA_TYPE_PICTURE           6
 
@@ -355,6 +358,307 @@ out_close:
     [d replaceBytesInRange:NSMakeRange(countpos, 4) withBytes:buf];
 
     return YES;
+}
+
+- (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc
+{
+    STTagID3v2TextFrame *tf;
+    STTagID3v2CommentFrame *cf;
+
+    switch(fc) {
+        case FrameLeadPerformer:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"artist"]];
+            return [tf autorelease];
+
+        case FrameAlbumTitle:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"album"]];
+            return [tf autorelease];
+
+        case FrameTitle:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"title"]];
+            return [tf autorelease];
+
+        case FrameTrackNumber:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"tracknumber"]];
+            return [tf autorelease];
+
+        case FrameYear:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"date"]];
+            return [tf autorelease];
+
+        case FrameComments:
+            cf = [[STTagID3v2CommentFrame alloc] initWithType:fc];
+
+            if(!cf) {
+                return nil;
+            }
+
+            [cf setText:[self commentForKey:@"comment"]];
+            return [cf autorelease];
+
+        case FrameAccompaniment:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"albumartist"]];
+            return [tf autorelease];
+
+        case FrameComposer:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"composer"]];
+            return [tf autorelease];
+
+        case FrameContentGrpDesc:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"grouping"]];
+            return [tf autorelease];
+
+        case FramePartOfSet:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"discnumber"]];
+            return [tf autorelease];
+
+        case FrameBPM:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"bpm"]];
+            return [tf autorelease];
+
+        case FramePartOfCompilation:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"compilation"]];
+            return [tf autorelease];
+
+        case FramePerformerSortOrd:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"artistsort"]];
+            return [tf autorelease];
+
+        case FrameAlbumArtistSortOrd:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"albumartistsort"]];
+            return [tf autorelease];
+
+        case FrameAlbumSortOrd:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"albumsort"]];
+            return [tf autorelease];
+
+        case FrameTitleSortOrd:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"titlesort"]];
+            return [tf autorelease];
+
+        case FrameComposerSortOrd:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"composersort"]];
+            return [tf autorelease];
+
+        case FrameEncodedBy:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"vendor"]];
+            return [tf autorelease];
+
+        case FrameISRC:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"isrc"]];
+            return [tf autorelease];
+
+        case FramePublisher:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"label"]];
+            return [tf autorelease];
+
+        case FrameLyricist:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"lyricist"]];
+            return [tf autorelease];
+
+        case FrameConductor:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"conductor"]];
+            return [tf autorelease];
+
+        case FrameModifiedBy:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"remixer"]];
+            return [tf autorelease];
+
+        case FrameMood:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"mood"]];
+            return [tf autorelease];
+
+        case FrameMediaType:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"media"]];
+            return [tf autorelease];
+
+        case FrameLanguage:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"language"]];
+            return [tf autorelease];
+
+        case FrameInitialKey:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"key"]];
+            return [tf autorelease];
+
+        case FrameCopyrightMsg:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"copyright"]];
+            return [tf autorelease];
+
+        case FrameContentType:
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            [tf setText:[self commentForKey:@"genre"]];
+            return [tf autorelease];
+    }
+
+    /* Nothing that we know about, so return nil */
+    return nil;
 }
 
 @end /* @implementation STTagFLAC */

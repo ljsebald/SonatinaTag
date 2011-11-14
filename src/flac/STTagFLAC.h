@@ -55,6 +55,8 @@
 - (void)addComment:(NSString *)comment key:(NSString *)key;
 - (BOOL)writeToData:(NSMutableData *)d lastMeta:(BOOL)l error:(NSError **)err;
 
+- (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc;
+
 @end /* @interface STTagFLAC */
 
 #endif /* !STTagFLAC_h */
