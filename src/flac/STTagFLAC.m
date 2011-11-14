@@ -364,57 +364,29 @@ out_close:
 {
     STTagID3v2TextFrame *tf;
     STTagID3v2CommentFrame *cf;
+    NSString *val;
 
     switch(fc) {
         case FrameLeadPerformer:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"artist"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"artist"];
+            goto text_frame;
 
         case FrameAlbumTitle:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"album"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"album"];
+            goto text_frame;
 
         case FrameTitle:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"title"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"title"];
+            goto text_frame;
 
         case FrameTrackNumber:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+            /* XXXX */
+            val = [self commentForKey:@"tracknumber"];
+            goto text_frame;
 
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"tracknumber"]];
-            return [tf autorelease];
-
-        case FrameYear:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"date"]];
-            return [tf autorelease];
+        case FrameReleaseTime:
+            val = [self commentForKey:@"date"];
+            goto text_frame;
 
         case FrameComments:
             cf = [[STTagID3v2CommentFrame alloc] initWithType:fc];
@@ -427,237 +399,115 @@ out_close:
             return [cf autorelease];
 
         case FrameAccompaniment:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"albumartist"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"albumartist"];
+            goto text_frame;
 
         case FrameComposer:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"composer"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"composer"];
+            goto text_frame;
 
         case FrameContentGrpDesc:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"grouping"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"grouping"];
+            goto text_frame;
 
         case FramePartOfSet:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"discnumber"]];
-            return [tf autorelease];
+            /* XXXX */
+            val = [self commentForKey:@"discnumber"];
+            goto text_frame;
 
         case FrameBPM:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"bpm"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"bpm"];
+            goto text_frame;
 
         case FramePartOfCompilation:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"compilation"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"compilation"];
+            goto text_frame;
 
         case FramePerformerSortOrd:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"artistsort"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"artistsort"];
+            goto text_frame;
 
         case FrameAlbumArtistSortOrd:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"albumartistsort"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"albumartistsort"];
+            goto text_frame;
 
         case FrameAlbumSortOrd:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"albumsort"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"albumsort"];
+            goto text_frame;
 
         case FrameTitleSortOrd:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"titlesort"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"titlesort"];
+            goto text_frame;
 
         case FrameComposerSortOrd:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"composersort"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"composersort"];
+            goto text_frame;
 
         case FrameEncodedBy:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"vendor"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"vendor"];
+            goto text_frame;
 
         case FrameISRC:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"isrc"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"isrc"];
+            goto text_frame;
 
         case FramePublisher:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"label"]];
-            return [tf autorelease];
+            /* XXXX */
+            val = [self commentForKey:@"label"];
+            goto text_frame;
 
         case FrameLyricist:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"lyricist"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"lyricist"];
+            goto text_frame;
 
         case FrameConductor:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"conductor"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"conductor"];
+            goto text_frame;
 
         case FrameModifiedBy:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"remixer"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"remixer"];
+            goto text_frame;
 
         case FrameMood:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"mood"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"mood"];
+            goto text_frame;
 
         case FrameMediaType:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"media"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"media"];
+            goto text_frame;
 
         case FrameLanguage:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"language"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"language"];
+            goto text_frame;
 
         case FrameInitialKey:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"key"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"key"];
+            goto text_frame;
 
         case FrameCopyrightMsg:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"copyright"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"copyright"];
+            goto text_frame;
 
         case FrameContentType:
-            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
-
-            if(!tf) {
-                return nil;
-            }
-
-            [tf setText:[self commentForKey:@"genre"]];
-            return [tf autorelease];
+            val = [self commentForKey:@"genre"];
+            goto text_frame;
     }
 
     /* Nothing that we know about, so return nil */
+    return nil;
+
+text_frame:
+    if(val) {
+        tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+        if(!tf) {
+            return nil;
+        }
+
+        [tf setText:val encoding:STTAGID3V2_ENCODING_UTF8];
+        return [tf autorelease];
+    }
+
     return nil;
 }
 
@@ -678,7 +528,7 @@ out_close:
     tmp = [[NSString alloc] initWithBytes:buf + 4
                                    length:sz
                                  encoding:NSUTF8StringEncoding];
-    [_vorbisComments setValue:tmp forKey:@"vendor"];
+    [self addComment:tmp key:@"vendor"];
     [tmp release];
 
     /* Set up the rest of the parsing */
