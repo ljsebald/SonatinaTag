@@ -506,6 +506,28 @@ out:
 
             [cf setText:_comment];
             return [cf autorelease];
+
+        case FrameContentType:
+        {
+            NSString *tmp;
+
+            tf = [[STTagID3v2TextFrame alloc] initWithType:fc];
+
+            if(!tf) {
+                return nil;
+            }
+
+            if(_genre <= ID3v1GenreMax) {
+                tmp = [NSString stringWithFormat:@"(%d)%@", (int)_genre,
+                       id3_genres[_genre]];
+            }
+            else {
+                tmp = [NSString stringWithFormat:@"(%d)", (int)_genre];
+            }
+
+            [tf setText:tmp];
+            return [tf autorelease];
+        }
     }
 
     /* Nothing that we know about, so return nil */
