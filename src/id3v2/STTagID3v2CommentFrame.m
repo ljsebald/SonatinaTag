@@ -100,10 +100,10 @@ static NSStringEncoding encs[4] = {
     return [NSString stringWithString:_description];
 }
 
-- (NSString *)text
+- (NSString *)comment
 {
     NSCharacterSet *s =
-    [NSCharacterSet characterSetWithCharactersInString:@"\0"];
+        [NSCharacterSet characterSetWithCharactersInString:@"\0"];
     return [_text stringByTrimmingCharactersInSet:s];
 }
 
@@ -118,7 +118,7 @@ static NSStringEncoding encs[4] = {
     return YES;
 }
 
-- (BOOL)setText:(NSString *)s
+- (BOOL)setComment:(NSString *)s
 {
     if(!s) {
         return NO;

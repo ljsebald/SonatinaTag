@@ -296,10 +296,10 @@ out_close:
 - (NSString *)comment
 {
     if(_majorver == 2) {
-        return [[self frameForKey:Frame22Comments] text];
+        return [[self frameForKey:Frame22Comments] comment];
     }
     else {
-        return [[self frameForKey:FrameComments] text];
+        return [[self frameForKey:FrameComments] comment];
     }
 }
 
@@ -419,6 +419,29 @@ out_close:
         [a addObject:f];
         [_frames setObject:a forKey:s];
     }
+}
+
+- (id<STTagComment>)commentAtIndex:(NSUInteger)i
+{
+    if(_majorver == 2) {
+        return [self frameForKey:Frame22Comments index:i];
+    }
+    else {
+        return [self frameForKey:FrameComments index:i];
+    }
+}
+
+- (NSArray *)allComments
+{
+    NSString *fcc;
+    if(_majorver == 2) {
+        fcc = [NSString stringWith4CC:Frame22Comments];
+    }
+    else {
+        fcc = [NSString stringWith4CC:FrameComments];
+    }
+
+    return [NSArray arrayWithArray:[_frames objectForKey:fcc]];
 }
 
 - (BOOL)writeToFile:(NSString *)fn error:(NSError **)err
@@ -813,7 +836,7 @@ out_err:
         STTagID3v2CommentFrame *cf = (STTagID3v2CommentFrame *)f;
         return [NSString stringWithFormat:@"{ language=\"%@\", "
                 @"description=\"%@\", comment=\"%@\" }", [cf language],
-                [cf description], [cf text]];
+                [cf description], [cf comment]];
     }
     else if([f isKindOfClass:[STTagID3v2PictureFrame class]]) {
         STTagID3v2PictureFrame *pf = (STTagID3v2PictureFrame *)f;

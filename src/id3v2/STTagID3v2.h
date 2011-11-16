@@ -79,8 +79,12 @@ typedef enum STTagID3v2_FrameCode_e STTagID3v2_FrameCode;
 
 - (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc;
 - (NSDictionary *)tagDictionary;
+
 - (id<STTagPicture>)artworkOfType:(STTagPictureType)type index:(NSUInteger)i;
 - (NSArray *)allArtwork;
+
+- (id<STTagComment>)commentAtIndex:(NSUInteger)i;
+- (NSArray *)allComments;
 
 @end /* @interface STTagID3v2 */
 

@@ -433,7 +433,7 @@ out_close:
                 return nil;
             }
 
-            [cf setText:[self commentForKey:@"comment"]];
+            [cf setComment:[self commentForKey:@"comment"]];
             return [cf autorelease];
 
         case FrameAccompaniment:
@@ -591,6 +591,30 @@ text_frame:
     [d release];
     
     return rv;
+}
+
+- (id<STTagComment>)commentAtIndex:(NSUInteger)i
+{
+    NSString *c = [self commentForKey:@"comment" index:i];
+
+    if(c) {
+        return [STTagComment commentWithString:c];
+    }
+
+    return nil;
+}
+
+- (NSArray *)allComments
+{
+    NSMutableArray *rv = [NSMutableArray array];
+    NSArray *ac = [_vorbisComments objectForKey:@"comment"];
+    id s;
+
+    for(s in ac) {
+        [rv addObject:[STTagComment commentWithString:s]];
+    }
+
+    return [NSArray arrayWithArray:rv];
 }
 
 @end /* @implementation STTagFLAC */

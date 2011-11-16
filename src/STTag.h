@@ -21,6 +21,7 @@
 
 #import <Foundation/Foundation.h>
 
+#include <SonatinaTag/STTagComment.h>
 #include <SonatinaTag/STTagID3v2Frame.h>
 
 typedef enum STTagPictureType_e {
@@ -76,8 +77,12 @@ typedef enum STTagPictureType_e {
 @optional
 - (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc;
 - (NSDictionary *)tagDictionary;
+
 - (id<STTagPicture>)artworkOfType:(STTagPictureType)type index:(NSUInteger)i;
 - (NSArray *)allArtwork;
+
+- (id<STTagComment>)commentAtIndex:(NSUInteger)i;
+- (NSArray *)allComments;
 
 @end /* @protocol STTag */
 

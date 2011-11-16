@@ -21,6 +21,7 @@
 #include "STTagID3v1.h"
 #include "STTagID3v2TextFrame.h"
 #include "STTagID3v2CommentFrame.h"
+#include "STTagComment.h"
 #include "NSStringExt.h"
 #include "NSErrorExt.h"
 
@@ -509,7 +510,7 @@ out:
                 return nil;
             }
 
-            [cf setText:_comment];
+            [cf setComment:_comment];
             return [cf autorelease];
 
         case FrameContentType:
@@ -571,6 +572,21 @@ out:
 {
     /* Return an empty array... ID3v1 doesn't have artwork. */
     return [NSArray array];
+}
+
+- (id<STTagComment>)commentAtIndex:(NSUInteger)i
+{
+    if(i != 0) {
+        return nil;
+    }
+
+    return [STTagComment commentWithString:_comment];
+}
+
+- (NSArray *)allComments
+{
+    STTagComment *c = [STTagComment commentWithString:_comment];
+    return [NSArray arrayWithObject:c];
 }
 
 + (NSArray *)genres

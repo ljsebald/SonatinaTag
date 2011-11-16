@@ -215,8 +215,12 @@ typedef enum STTagID3v1_Genre_e {
 
 - (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc;
 - (NSDictionary *)tagDictionary;
+
 - (id<STTagPicture>)artworkOfType:(STTagPictureType)type index:(NSUInteger)i;
 - (NSArray *)allArtwork;
+
+- (id<STTagComment>)commentAtIndex:(NSUInteger)i;
+- (NSArray *)allComments;
 
 + (NSArray *)genres;
 + (NSString *)stringForGenre:(STTagID3v1_Genre)genre;

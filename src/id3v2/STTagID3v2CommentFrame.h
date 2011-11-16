@@ -20,12 +20,13 @@
 #define STTagID3v2CommentFrame_h
 
 #import <Foundation/Foundation.h>
+#include <SonatinaTag/STTag.h>
 #include <SonatinaTag/STTagID3v2Frame.h>
 
 /* Grab the encoding list */
 #include <SonatinaTag/STTagID3v2TextFrame.h>
 
-@interface STTagID3v2CommentFrame : STTagID3v2Frame {
+@interface STTagID3v2CommentFrame : STTagID3v2Frame <STTagComment> {
 @private
     uint8_t _encoding;
     NSString *_language;
@@ -42,10 +43,10 @@
 - (uint8_t)encoding;
 - (NSString *)language;
 - (NSString *)description;
-- (NSString *)text;
+- (NSString *)comment;
 
 - (BOOL)setEncoding:(uint8_t)enc;
-- (BOOL)setText:(NSString *)s;
+- (BOOL)setComment:(NSString *)s;
 - (BOOL)setLanguage:(NSString *)language;
 - (BOOL)setDescription:(NSString *)description;
 

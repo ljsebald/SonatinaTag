@@ -15,6 +15,8 @@
 		2A0C03D911E794C200056E43 /* STTagFLACPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C03D711E794C200056E43 /* STTagFLACPicture.m */; };
 		2A1932CD147047B300CD2FEF /* STTagID3v2CommentFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A1932CB147047B300CD2FEF /* STTagID3v2CommentFrame.h */; };
 		2A1932CE147047B300CD2FEF /* STTagID3v2CommentFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1932CC147047B300CD2FEF /* STTagID3v2CommentFrame.m */; };
+		2A322B661474246C0005EB04 /* STTagComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A322B641474246C0005EB04 /* STTagComment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A322B671474246C0005EB04 /* STTagComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A322B651474246C0005EB04 /* STTagComment.m */; };
 		2A7757BB11BDA7DB00B590C0 /* STTagM4A.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A7757B911BDA7DB00B590C0 /* STTagM4A.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A7757BC11BDA7DB00B590C0 /* STTagM4A.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7757BA11BDA7DB00B590C0 /* STTagM4A.m */; };
 		2A8921B711B9A58300F9EC90 /* STTagID3v2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A8921B511B9A58300F9EC90 /* STTagID3v2.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -53,6 +55,8 @@
 		2A0C03D711E794C200056E43 /* STTagFLACPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagFLACPicture.m; path = src/flac/STTagFLACPicture.m; sourceTree = "<group>"; };
 		2A1932CB147047B300CD2FEF /* STTagID3v2CommentFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagID3v2CommentFrame.h; path = src/id3v2/STTagID3v2CommentFrame.h; sourceTree = "<group>"; };
 		2A1932CC147047B300CD2FEF /* STTagID3v2CommentFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagID3v2CommentFrame.m; path = src/id3v2/STTagID3v2CommentFrame.m; sourceTree = "<group>"; };
+		2A322B641474246C0005EB04 /* STTagComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagComment.h; path = src/STTagComment.h; sourceTree = "<group>"; };
+		2A322B651474246C0005EB04 /* STTagComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagComment.m; path = src/STTagComment.m; sourceTree = "<group>"; };
 		2A7757B911BDA7DB00B590C0 /* STTagM4A.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagM4A.h; path = src/m4a/STTagM4A.h; sourceTree = "<group>"; };
 		2A7757BA11BDA7DB00B590C0 /* STTagM4A.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STTagM4A.m; path = src/m4a/STTagM4A.m; sourceTree = "<group>"; };
 		2A8921B511B9A58300F9EC90 /* STTagID3v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STTagID3v2.h; path = src/id3v2/STTagID3v2.h; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 				2ACD087111BAD21600983005 /* STFile.h */,
 				2ACD087211BAD21600983005 /* STFile.m */,
 				2ACD087811BAD41B00983005 /* STTag.h */,
+				2A322B641474246C0005EB04 /* STTagComment.h */,
+				2A322B651474246C0005EB04 /* STTagComment.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -253,6 +259,7 @@
 				2A1932CD147047B300CD2FEF /* STTagID3v2CommentFrame.h in Headers */,
 				2AF7BD621472084B0036C5B1 /* STTagID3v2UserTextFrame.h in Headers */,
 				2AF7BD9514720C8A0036C5B1 /* STTagID3v2UserURLFrame.h in Headers */,
+				2A322B661474246C0005EB04 /* STTagComment.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +341,7 @@
 				2A1932CE147047B300CD2FEF /* STTagID3v2CommentFrame.m in Sources */,
 				2AF7BD631472084B0036C5B1 /* STTagID3v2UserTextFrame.m in Sources */,
 				2AF7BD9614720C8A0036C5B1 /* STTagID3v2UserURLFrame.m in Sources */,
+				2A322B671474246C0005EB04 /* STTagComment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
