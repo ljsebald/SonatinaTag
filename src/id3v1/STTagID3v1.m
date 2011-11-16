@@ -357,27 +357,27 @@ out:
 
 - (NSString *)title
 {
-    return _title;
+    return [NSString stringWithString:_title];
 }
 
 - (NSString *)artist
 {
-    return _artist;
+    return [NSString stringWithString:_artist];
 }
 
 - (NSString *)album
 {
-    return _album;
+    return [NSString stringWithString:_album];
 }
 
 - (NSString *)year
 {
-    return _year;
+    return [NSString stringWithString:_year];
 }
 
 - (NSString *)comment
 {
-    return _comment;
+    return [NSString stringWithString:_comment];
 }
 
 - (NSData *)artwork
@@ -403,26 +403,31 @@ out:
 /* Methods for building up new ID3v1 tags. */
 - (void)setTitle:(NSString *)title
 {
+    [_title autorelease];
     _title = [title retain];
 }
 
 - (void)setArtist:(NSString *)artist
 {
+    [_artist autorelease];
     _artist = [artist retain];
 }
 
 - (void)setAlbum:(NSString *)album
 {
+    [_album autorelease];
     _album = [album retain];
 }
 
 - (void)setYear:(NSString *)year
 {
+    [_year autorelease];
     _year = [year retain];
 }
 
 - (void)setComment:(NSString *)comment
 {
+    [_comment autorelease];
     _comment = [comment retain];
 }
 
@@ -532,6 +537,40 @@ out:
 
     /* Nothing that we know about, so return nil */
     return nil;
+}
+
+- (NSDictionary *)tagDictionary
+{
+    NSMutableDictionary *d = [[NSMutableDictionary alloc] init];
+    NSDictionary *rv;
+
+    [d setObject:@"ID3v1" forKey:@"Tag Type"];
+    [d setObject:[NSString stringWithString:_title] forKey:@"Title"];
+    [d setObject:[NSString stringWithString:_artist] forKey:@"Artist"];
+    [d setObject:[NSString stringWithString:_album] forKey:@"Album"];
+    [d setObject:[NSString stringWithString:_year] forKey:@"Year"];
+    [d setObject:[NSString stringWithString:_comment] forKey:@"Comment"];
+    [d setObject:[NSNumber numberWithUnsignedChar:_genre] forKey:@"Genre"];
+
+    if(_track) {
+        [d setObject:[NSNumber numberWithUnsignedChar:_track] forKey:@"Track"];
+    }
+
+    rv = [NSDictionary dictionaryWithDictionary:d];
+    [d release];
+
+    return rv;
+}
+
+- (id<STTagPicture>)artworkOfType:(STTagPictureType)type index:(NSUInteger)i
+{
+    return nil;
+}
+
+- (NSArray *)allArtwork
+{
+    /* Return an empty array... ID3v1 doesn't have artwork. */
+    return [NSArray array];
 }
 
 + (NSArray *)genres

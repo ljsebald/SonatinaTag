@@ -214,6 +214,9 @@ typedef enum STTagID3v1_Genre_e {
 - (void)setTrackNumber:(int)trackNumber;
 
 - (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc;
+- (NSDictionary *)tagDictionary;
+- (id<STTagPicture>)artworkOfType:(STTagPictureType)type index:(NSUInteger)i;
+- (NSArray *)allArtwork;
 
 + (NSArray *)genres;
 + (NSString *)stringForGenre:(STTagID3v1_Genre)genre;

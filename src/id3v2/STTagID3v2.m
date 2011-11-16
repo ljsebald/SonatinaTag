@@ -25,6 +25,8 @@
 #include "STTagID3v2URLFrame.h"
 #include "STTagID3v2PictureFrame.h"
 #include "STTagID3v2CommentFrame.h"
+#include "STTagID3v2UserTextFrame.h"
+#include "STTagID3v2UserURLFrame.h"
 #include "NSStringExt.h"
 #include "NSErrorExt.h"
 
@@ -51,6 +53,7 @@ static uint32_t parse_size_24(const uint8_t *buf) {
 @interface STTagID3v2 (Internal)
 
 - (BOOL)parseFrames;
++ (NSString *)stringForFrame:(STTagID3v2Frame *)f;
 
 @end /* @interface STTagID3v2 */
 
@@ -300,14 +303,58 @@ out_close:
     }
 }
 
-- (NSData *)artwork
+- (id<STTagPicture>)artworkOfType:(STTagPictureType)type index:(NSUInteger)i
 {
+    NSString *fourcc;
+    NSArray *pictures;
+    id f;
+
     if(_majorver == 2) {
-        return [[self frameForKey:Frame22AttachedPicture] pictureData];
+        fourcc = [NSString stringWith4CC:Frame22AttachedPicture];
     }
     else {
-        return [[self frameForKey:FrameAttachedPicture] pictureData];
+        fourcc = [NSString stringWith4CC:FrameAttachedPicture];
     }
+
+    /* Grab all the pictures */
+    pictures = [_frames objectForKey:fourcc];
+
+    /* Search through the images to look for the ones we want. */
+    for(f in pictures) {
+        if(type == STTagPictureType_Any || type == [f pictureType]) {
+            if(!i) {
+                return f;
+            }
+
+            --i;
+        }
+    }
+
+    /* Didn't find it, punt. */
+    return nil;
+}
+
+- (NSArray *)allArtwork
+{
+    NSArray *pictures;
+    NSString *fourcc;
+
+    if(_majorver == 2) {
+        fourcc = [NSString stringWith4CC:Frame22AttachedPicture];
+    }
+    else {
+        fourcc = [NSString stringWith4CC:FrameAttachedPicture];
+    }
+    
+    /* Grab all the pictures */
+    pictures = [_frames objectForKey:fourcc];
+
+    return [NSArray arrayWithArray:pictures];
+}
+
+- (NSData *)artwork
+{
+    return [[self artworkOfType:STTagPictureType_Any index:0] pictureData];
 }
 
 - (NSString *)genre
@@ -422,6 +469,47 @@ out_close:
 - (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc
 {
     return [self frameForKey:fc];
+}
+
+- (NSDictionary *)tagDictionary
+{
+    NSMutableDictionary *d = [[NSMutableDictionary alloc] init];
+    NSDictionary *rv;
+    id key, value;
+    int i;
+    NSString *str;
+
+    [d setObject:@"ID3v2" forKey:@"Tag Type"];
+
+    for(key in _frames) {
+        NSArray *arr = [_frames objectForKey:key];
+
+        if([arr count] > 1) {
+            i = 0;
+
+            for(value in arr) {
+                str = [STTagID3v2 stringForFrame:value];
+
+                if(str) {
+                    [d setObject:str
+                          forKey:[NSString stringWithFormat:@"%@[%d]", key,
+                                  i++]];
+                }
+            }
+        }
+        else {
+            str = [STTagID3v2 stringForFrame:[arr objectAtIndex:0]];
+
+            if(str) {
+                [d setObject:str forKey:key];
+            }
+        }
+    }
+
+    rv = [NSDictionary dictionaryWithDictionary:d];
+    [d release];
+
+    return rv;
 }
 
 @end /* @implementation STTagID3v2 */
@@ -591,6 +679,23 @@ out_close:
                 break;
             }
 
+            case FrameUserDefinedTextInf:
+            case Frame22UserDefinedText:
+            {
+                STTagID3v2UserTextFrame *utframe;
+
+                utframe = [STTagID3v2UserTextFrame frameWithType:fourcc
+                                                            size:sz
+                                                           flags:flags
+                                                            data:framedata];
+
+                if(utframe != nil) {
+                    [self addFrame:utframe];
+                }
+
+                break;
+            }
+
             case FrameCommercialInfo:
             case FrameLegalCopyrightInfo:
             case FrameOfficialFilePage:
@@ -615,6 +720,23 @@ out_close:
 
                 if(uframe != nil) {
                     [self addFrame:uframe];
+                }
+
+                break;
+            }
+
+            case FrameUserLink:
+            case Frame22UserLink:
+            {
+                STTagID3v2UserURLFrame *uuframe;
+
+                uuframe = [STTagID3v2UserURLFrame frameWithType:fourcc
+                                                           size:sz
+                                                          flags:flags
+                                                           data:framedata];
+
+                if(uuframe != nil) {
+                    [self addFrame:uuframe];
                 }
 
                 break;
@@ -675,6 +797,43 @@ out_close:
 out_err:
     [pool drain];
     return NO;
+}
+
++ (NSString *)stringForFrame:(STTagID3v2Frame *)f
+{
+    if([f isKindOfClass:[STTagID3v2TextFrame class]]) {
+        STTagID3v2TextFrame *tf = (STTagID3v2TextFrame *)f;
+        return [tf text];
+    }
+    else if([f isKindOfClass:[STTagID3v2URLFrame class]]) {
+        STTagID3v2URLFrame *uf = (STTagID3v2URLFrame *)f;
+        return [[uf URL] absoluteString];
+    }
+    else if([f isKindOfClass:[STTagID3v2CommentFrame class]]) {
+        STTagID3v2CommentFrame *cf = (STTagID3v2CommentFrame *)f;
+        return [NSString stringWithFormat:@"{ language=\"%@\", "
+                @"description=\"%@\", comment=\"%@\" }", [cf language],
+                [cf description], [cf text]];
+    }
+    else if([f isKindOfClass:[STTagID3v2PictureFrame class]]) {
+        STTagID3v2PictureFrame *pf = (STTagID3v2PictureFrame *)f;
+        return [NSString stringWithFormat:@"{ MIME=\"%@\", type=\"%d\", "
+                @"description=\"%@\" }", [pf mimeType], (int)[pf pictureType],
+                [pf description]];
+    }
+    else if([f isKindOfClass:[STTagID3v2UserURLFrame class]]) {
+        STTagID3v2UserURLFrame *uuf = (STTagID3v2UserURLFrame *)f;
+        return [NSString stringWithFormat:@"{ description=\"%@\", "
+                @"url=\"%@\" }", [uuf description], [[uuf URL] absoluteString]];
+    }
+    else if([f isKindOfClass:[STTagID3v2UserTextFrame class]]) {
+        STTagID3v2UserTextFrame *utf = (STTagID3v2UserTextFrame *)f;
+        return [NSString stringWithFormat:@"{ description=\"%@\", "
+                @"text=\"%@\" }", [utf description], [utf text]];
+    }
+    else {
+        return [NSString stringWithString:@"{ data }"];
+    }
 }
 
 @end /* @implementation STTagID3v2 (Internal) */

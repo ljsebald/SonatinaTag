@@ -16,40 +16,34 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-#ifndef STTagID3v2PictureFrame_h
-#define STTagID3v2PictureFrame_h
+#ifndef STTagID3v2UserTextFrame_h
+#define STTagID3v2UserTextFrame_h
 
 #import <Foundation/Foundation.h>
-#include <SonatinaTag/STTag.h>
 #include <SonatinaTag/STTagID3v2Frame.h>
+#include <SonatinaTag/STTagID3v2TextFrame.h>
 
-@interface STTagID3v2PictureFrame : STTagID3v2Frame <STTagPicture> {
+@interface STTagID3v2UserTextFrame : STTagID3v2Frame {
 @private
-    uint8_t _textEncoding;
-    NSString *_mimeType;
-    uint8_t _pictureType;
+    uint8_t _encoding;
     NSString *_description;
-    NSData *_pictureData;
+    NSString *_text;
 }
 
 - (id)initWithType:(STTagID3v2_FrameCode)type;
 
 - (id)initWithType:(STTagID3v2_FrameCode)type size:(uint32_t)size
              flags:(uint16_t)flags data:(NSData *)data;
-+ (id)frameWithType:(STTagID3v2_FrameCode)type size:(uint32_t)size
-              flags:(uint16_t)flags data:(NSData *)data;
 - (void)dealloc;
 
-- (uint8_t)textEncoding;
-- (NSString *)mimeType;
-- (STTagPictureType)pictureType;
+- (uint8_t)encoding;
+- (NSString *)text;
 - (NSString *)description;
-- (NSData *)pictureData;
 
-- (void)setDescription:(NSString *)s;
-- (void)setDescription:(NSString *)s encoding:(uint8_t)enc;
-- (void)setPicture:(NSData *)d ofType:(uint8_t)type mimeType:(NSString *)mime;
+- (void)setText:(NSString *)s;
+- (void)setEncoding:(uint8_t)enc;
+- (void)setDescription:(NSString *)d;
 
-@end /* @interface STTagID3v2PictureFrame */
+@end /* @interface STTagID3v2UserTextFrame */
 
-#endif /* !STTagID3v2PictureFrame_h */
+#endif /* !STTagID3v2UserTextFrame_h */

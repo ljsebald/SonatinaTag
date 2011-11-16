@@ -17,6 +17,7 @@
 */
 
 #include "STTagFLACPicture.h"
+#include "STTag.h"
 #include <arpa/inet.h>
 
 #define METADATA_TYPE_PICTURE           6
@@ -110,9 +111,9 @@
     [super dealloc];
 }
 
-- (uint32_t)pictureType
+- (STTagPictureType)pictureType
 {
-    return _pictureType;
+    return (STTagPictureType)_pictureType;
 }
 
 - (NSString *)mimeType

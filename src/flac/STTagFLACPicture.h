@@ -22,9 +22,9 @@
 #import <Foundation/Foundation.h>
 
 /* Grab the picture types */
-#include <SonatinaTag/STTagID3v2PictureFrame.h>
+#include <SonatinaTag/STTag.h>
 
-@interface STTagFLACPicture : NSObject {
+@interface STTagFLACPicture : NSObject <STTagPicture> {
 @private
     uint32_t _pictureType;
     NSString *_mimeType;
@@ -42,7 +42,7 @@
 - (id)initWithData:(NSData *)data;
 - (void)dealloc;
 
-- (uint32_t)pictureType;
+- (STTagPictureType)pictureType;
 - (NSString *)mimeType;
 - (NSString *)description;
 - (uint32_t)width;

@@ -130,9 +130,9 @@ static NSStringEncoding encs[4] = {
     return _mimeType;
 }
 
-- (uint8_t)pictureType
+- (STTagPictureType)pictureType
 {
-    return _pictureType;
+    return (STTagPictureType)_pictureType;
 }
 
 - (NSString *)description

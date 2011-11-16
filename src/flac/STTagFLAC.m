@@ -206,13 +206,33 @@ out_close:
     return [self commentForKey:@"description"];
 }
 
-- (NSData *)artwork
+- (id<STTagPicture>)artworkOfType:(STTagPictureType)type index:(NSUInteger)i
 {
-    if([_pictures count] > 0) {
-        return [[_pictures objectAtIndex:0] pictureData];
+    id f;
+
+    /* Search through the images to look for the ones we want. */
+    for(f in _pictures) {
+        if(type == STTagPictureType_Any || type == [f pictureType]) {
+            if(!i) {
+                return f;
+            }
+
+            --i;
+        }
     }
 
+    /* Didn't find it, punt. */
     return nil;
+}
+
+- (NSData *)artwork
+{
+    return [[self artworkOfType:STTagPictureType_Any index:0] pictureData];
+}
+
+- (NSArray *)allArtwork
+{
+    return [NSArray arrayWithArray:_pictures];
 }
 
 - (int)trackNumber
@@ -240,8 +260,17 @@ out_close:
 }
 
 - (id)commentForKey:(NSString *)key index:(NSUInteger)i
-{    
-    return [[_vorbisComments objectForKey:key] objectAtIndex:i];
+{
+    NSString *s;
+
+    s = [[_vorbisComments objectForKey:key] objectAtIndex:i];
+
+    if(s) {
+        return [NSString stringWithString:s];
+    }
+    else {
+        return nil;
+    }
 }
 
 - (id)commentForKey:(NSString *)key
@@ -531,6 +560,37 @@ text_frame:
     }
 
     return nil;
+}
+
+- (NSDictionary *)tagDictionary
+{
+    NSMutableDictionary *d = [[NSMutableDictionary alloc] init];
+    NSDictionary *rv;
+    id key, value;
+    int i;
+
+    [d setObject:@"FLAC Vorbis Comments" forKey:@"Tag Type"];
+
+    for(key in _vorbisComments) {
+        NSArray *arr = [_vorbisComments objectForKey:key];
+
+        if([arr count] > 1) {
+            i = 0;
+
+            for(value in arr) {
+                [d setObject:value forKey:[NSString stringWithFormat:@"%@[%d]",
+                                           key, i++]];
+            }
+        }
+        else {
+            [d setObject:[arr objectAtIndex:0] forKey:key];
+        }
+    }
+
+    rv = [NSDictionary dictionaryWithDictionary:d];
+    [d release];
+    
+    return rv;
 }
 
 @end /* @implementation STTagFLAC */

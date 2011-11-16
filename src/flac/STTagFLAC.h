@@ -56,6 +56,9 @@
 - (BOOL)writeToData:(NSMutableData *)d lastMeta:(BOOL)l error:(NSError **)err;
 
 - (id)id3v2FrameForKey:(STTagID3v2_FrameCode)fc;
+- (NSDictionary *)tagDictionary;
+- (id<STTagPicture>)artworkOfType:(STTagPictureType)type index:(NSUInteger)i;
+- (NSArray *)allArtwork;
 
 @end /* @interface STTagFLAC */
 
