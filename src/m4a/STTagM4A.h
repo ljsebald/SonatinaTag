@@ -70,6 +70,8 @@ typedef enum STTagM4A_AtomCode_e {
     NSMutableDictionary *_atoms;
 }
 
+- (id)init;
+
 - (id)initFromFile:(NSString *)filename;
 - (void)dealloc;
 
@@ -85,7 +87,12 @@ typedef enum STTagM4A_AtomCode_e {
 - (int)trackNumber;
 - (int)discNumber;
 
-- (NSData *)atomForKey:(uint32_t)fourcc;
+/* For all types except '----', this will return an NSData object. For '----',
+   you'll get back a NSArray of all of them (each entry in the array will be a
+   NSData object). */
+- (id)atomForKey:(uint32_t)fourcc;
+
+- (void)addAtom:(uint32_t)fourcc data:(NSData *)data;
 
 @end /* @interface STTagM4A */
 

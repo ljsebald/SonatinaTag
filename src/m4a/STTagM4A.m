@@ -31,6 +31,18 @@
 
 @implementation STTagM4A
 
+- (id)init
+{
+    if((self = [super init])) {
+        NSMutableArray *a = [NSMutableArray array];
+
+        _atoms = [[NSMutableDictionary alloc] init];
+        [_atoms setObject:a forKey:@"----"];
+    }
+
+    return self;
+}
+
 - (id)initFromFile:(NSString *)filename
 {
     FILE *fp;
@@ -128,9 +140,19 @@
     return (int)bytes[3];
 }
 
-- (NSData *)atomForKey:(uint32_t)fourcc
+- (id)atomForKey:(uint32_t)fourcc
 {
     return [_atoms objectForKey:[NSString stringWith4CC:fourcc]];
+}
+
+- (void)addAtom:(uint32_t)fourcc data:(NSData *)data
+{
+    if(fourcc != '----') {
+        [_atoms setObject:data forKey:[NSString stringWith4CC:fourcc]];
+    }
+    else {
+        [[_atoms objectForKey:@"----"] addObject:data];
+    }
 }
 
 @end /* @implementation STTagM4A */
@@ -146,6 +168,7 @@
     long pos;
     uint8_t *tmp;
     NSData *atomdata;
+    NSMutableArray *longnames;
 
     /* Read in the first 8 bytes of the file, and make sure it is as we would
        expect it to be */
@@ -213,6 +236,10 @@
         goto out_close;
     }
 
+    /* Create an array to put ---- entries in */
+    longnames = [NSMutableArray array];
+    [_atoms setObject:longnames forKey:@"----"];
+
     /* Read in the entire ilst atom */
     while(ilstsz > 8) {
         pos = ftell(fp);
@@ -242,10 +269,18 @@
             atomsz = ilstsz;
         }
 
-        /* Ignore the '----' type tags for now, until I come up with a good way
-           to deal with them... Also, ignore 'free' tags, as they're just plain
-           blank space */
-        if(fourcc == '----' || fourcc == 'free') {
+        /* Do we have a '----' atom? Punt and copy the whole thing... */
+        if(fourcc == '----') {
+            tmp = (uint8_t *)malloc(atomsz);
+            fseek(fp, -((long)atomread), SEEK_CUR);
+            fread(tmp, 1, atomsz, fp);
+            atomdata = [[NSData alloc] initWithBytesNoCopy:tmp length:atomsz];
+            [self addAtom:'----' data:atomdata];
+            goto doneAtom;
+        }
+
+        /* Ignore free atoms, since they're just empty space... */
+        if(fourcc == 'free') {
             goto doneAtom;
         }
 
