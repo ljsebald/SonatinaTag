@@ -1,0 +1,500 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2AD7374414AD133500B8009D /* FLAC.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7373F14AD133500B8009D /* FLAC.h */; settings = {ATTRIBUTES = (); }; };
+		2AD7374514AD133500B8009D /* ID3v1.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374014AD133500B8009D /* ID3v1.h */; settings = {ATTRIBUTES = (); }; };
+		2AD7374614AD133500B8009D /* ID3v2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374114AD133500B8009D /* ID3v2.h */; settings = {ATTRIBUTES = (); }; };
+		2AD7374714AD133500B8009D /* ID3v2Frame.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374214AD133500B8009D /* ID3v2Frame.h */; settings = {ATTRIBUTES = (); }; };
+		2AD7374814AD133500B8009D /* M4A.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374314AD133500B8009D /* M4A.h */; settings = {ATTRIBUTES = (); }; };
+		2AD7374F14AD134400B8009D /* cdefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374914AD134400B8009D /* cdefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2AD7375014AD134400B8009D /* Dictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374A14AD134400B8009D /* Dictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2AD7375114AD134400B8009D /* Error.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374B14AD134400B8009D /* Error.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2AD7375214AD134400B8009D /* Picture.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374C14AD134400B8009D /* Picture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2AD7375314AD134400B8009D /* queue.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374D14AD134400B8009D /* queue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2AD7375414AD134400B8009D /* SonatinaTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374E14AD134400B8009D /* SonatinaTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2AD7375814AD136400B8009D /* Tag.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7375614AD136400B8009D /* Tag.c */; };
+		2AD7375914AD136400B8009D /* Tag.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7375714AD136400B8009D /* Tag.h */; settings = {ATTRIBUTES = (); }; };
+		2AD7376114AD138D00B8009D /* Dictionary.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7375F14AD138D00B8009D /* Dictionary.c */; };
+		2AD7376214AD138D00B8009D /* Picture.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7376014AD138D00B8009D /* Picture.c */; };
+		2AD7376414AD139700B8009D /* M4A-iTunes.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7376314AD139700B8009D /* M4A-iTunes.c */; };
+		2AD7376614AD13A100B8009D /* FLACVorbisComments.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7376514AD13A100B8009D /* FLACVorbisComments.c */; };
+		2AD7377114AD13B000B8009D /* CommentFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7376714AD13B000B8009D /* CommentFrame.c */; };
+		2AD7377214AD13B000B8009D /* Frame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7376814AD13B000B8009D /* Frame.c */; };
+		2AD7377314AD13B000B8009D /* Frame.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7376914AD13B000B8009D /* Frame.h */; };
+		2AD7377414AD13B000B8009D /* GenericFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7376A14AD13B000B8009D /* GenericFrame.c */; };
+		2AD7377514AD13B000B8009D /* ID3v2.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7376B14AD13B000B8009D /* ID3v2.c */; };
+		2AD7377614AD13B000B8009D /* PictureFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7376C14AD13B000B8009D /* PictureFrame.c */; };
+		2AD7377714AD13B000B8009D /* TextFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7376D14AD13B000B8009D /* TextFrame.c */; };
+		2AD7377814AD13B000B8009D /* URLFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7376E14AD13B000B8009D /* URLFrame.c */; };
+		2AD7377914AD13B000B8009D /* UserTextFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7376F14AD13B000B8009D /* UserTextFrame.c */; };
+		2AD7377A14AD13B000B8009D /* UserURLFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7377014AD13B000B8009D /* UserURLFrame.c */; };
+		2AD7377C14AD13BC00B8009D /* ID3v1.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7377B14AD13BC00B8009D /* ID3v1.c */; };
+		2AD7388114AD76B700B8009D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD7388014AD76B700B8009D /* Foundation.framework */; };
+		2AFAE497150E1E1E0045B516 /* basedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AFAE496150E1E1E0045B516 /* basedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2AD7373F14AD133500B8009D /* FLAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAC.h; path = ../include/SonatinaTag/Tags/FLAC.h; sourceTree = SOURCE_ROOT; };
+		2AD7374014AD133500B8009D /* ID3v1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ID3v1.h; path = ../include/SonatinaTag/Tags/ID3v1.h; sourceTree = SOURCE_ROOT; };
+		2AD7374114AD133500B8009D /* ID3v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ID3v2.h; path = ../include/SonatinaTag/Tags/ID3v2.h; sourceTree = SOURCE_ROOT; };
+		2AD7374214AD133500B8009D /* ID3v2Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ID3v2Frame.h; path = ../include/SonatinaTag/Tags/ID3v2Frame.h; sourceTree = SOURCE_ROOT; };
+		2AD7374314AD133500B8009D /* M4A.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M4A.h; path = ../include/SonatinaTag/Tags/M4A.h; sourceTree = SOURCE_ROOT; };
+		2AD7374914AD134400B8009D /* cdefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cdefs.h; path = ../include/SonatinaTag/cdefs.h; sourceTree = SOURCE_ROOT; };
+		2AD7374A14AD134400B8009D /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dictionary.h; path = ../include/SonatinaTag/Dictionary.h; sourceTree = SOURCE_ROOT; };
+		2AD7374B14AD134400B8009D /* Error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Error.h; path = ../include/SonatinaTag/Error.h; sourceTree = SOURCE_ROOT; };
+		2AD7374C14AD134400B8009D /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Picture.h; path = ../include/SonatinaTag/Picture.h; sourceTree = SOURCE_ROOT; };
+		2AD7374D14AD134400B8009D /* queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = queue.h; path = ../include/SonatinaTag/queue.h; sourceTree = SOURCE_ROOT; };
+		2AD7374E14AD134400B8009D /* SonatinaTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SonatinaTag.h; path = ../include/SonatinaTag/SonatinaTag.h; sourceTree = SOURCE_ROOT; };
+		2AD7375614AD136400B8009D /* Tag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Tag.c; path = ../src/base/Tag.c; sourceTree = SOURCE_ROOT; };
+		2AD7375714AD136400B8009D /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tag.h; path = ../src/base/Tag.h; sourceTree = SOURCE_ROOT; };
+		2AD7375F14AD138D00B8009D /* Dictionary.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Dictionary.c; path = ../src/utils/Dictionary.c; sourceTree = SOURCE_ROOT; };
+		2AD7376014AD138D00B8009D /* Picture.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Picture.c; path = ../src/utils/Picture.c; sourceTree = SOURCE_ROOT; };
+		2AD7376314AD139700B8009D /* M4A-iTunes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "M4A-iTunes.c"; path = "../src/m4a/M4A-iTunes.c"; sourceTree = SOURCE_ROOT; };
+		2AD7376514AD13A100B8009D /* FLACVorbisComments.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = FLACVorbisComments.c; path = ../src/flac/FLACVorbisComments.c; sourceTree = SOURCE_ROOT; };
+		2AD7376714AD13B000B8009D /* CommentFrame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CommentFrame.c; path = ../src/id3v2/CommentFrame.c; sourceTree = SOURCE_ROOT; };
+		2AD7376814AD13B000B8009D /* Frame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Frame.c; path = ../src/id3v2/Frame.c; sourceTree = SOURCE_ROOT; };
+		2AD7376914AD13B000B8009D /* Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Frame.h; path = ../src/id3v2/Frame.h; sourceTree = SOURCE_ROOT; };
+		2AD7376A14AD13B000B8009D /* GenericFrame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = GenericFrame.c; path = ../src/id3v2/GenericFrame.c; sourceTree = SOURCE_ROOT; };
+		2AD7376B14AD13B000B8009D /* ID3v2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ID3v2.c; path = ../src/id3v2/ID3v2.c; sourceTree = SOURCE_ROOT; };
+		2AD7376C14AD13B000B8009D /* PictureFrame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = PictureFrame.c; path = ../src/id3v2/PictureFrame.c; sourceTree = SOURCE_ROOT; };
+		2AD7376D14AD13B000B8009D /* TextFrame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TextFrame.c; path = ../src/id3v2/TextFrame.c; sourceTree = SOURCE_ROOT; };
+		2AD7376E14AD13B000B8009D /* URLFrame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = URLFrame.c; path = ../src/id3v2/URLFrame.c; sourceTree = SOURCE_ROOT; };
+		2AD7376F14AD13B000B8009D /* UserTextFrame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = UserTextFrame.c; path = ../src/id3v2/UserTextFrame.c; sourceTree = SOURCE_ROOT; };
+		2AD7377014AD13B000B8009D /* UserURLFrame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = UserURLFrame.c; path = ../src/id3v2/UserURLFrame.c; sourceTree = SOURCE_ROOT; };
+		2AD7377B14AD13BC00B8009D /* ID3v1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ID3v1.c; path = ../src/id3v1/ID3v1.c; sourceTree = SOURCE_ROOT; };
+		2AD7388014AD76B700B8009D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2AFAE496150E1E1E0045B516 /* basedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = basedefs.h; path = ../include/SonatinaTag/basedefs.h; sourceTree = SOURCE_ROOT; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* SonatinaTag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SonatinaTag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD7388114AD76B700B8009D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5B0486A6940098B216 /* SonatinaTag.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* SonatinaTag */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7373A14AD12CB00B8009D /* libSonatinaTag */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = SonatinaTag;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7388014AD76B700B8009D /* Foundation.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		2AD7373A14AD12CB00B8009D /* libSonatinaTag */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7373C14AD131700B8009D /* include */,
+				2AD7375514AD135200B8009D /* base */,
+				2AD7375C14AD137700B8009D /* flac */,
+				2AD7375A14AD136C00B8009D /* id3v1 */,
+				2AD7375B14AD137200B8009D /* id3v2 */,
+				2AD7375D14AD137B00B8009D /* m4a */,
+				2AD7375E14AD137F00B8009D /* utils */,
+			);
+			name = libSonatinaTag;
+			sourceTree = "<group>";
+		};
+		2AD7373C14AD131700B8009D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7373D14AD131D00B8009D /* SonatinaTag */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		2AD7373D14AD131D00B8009D /* SonatinaTag */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7373E14AD132300B8009D /* Tags */,
+				2AFAE496150E1E1E0045B516 /* basedefs.h */,
+				2AD7374914AD134400B8009D /* cdefs.h */,
+				2AD7374A14AD134400B8009D /* Dictionary.h */,
+				2AD7374B14AD134400B8009D /* Error.h */,
+				2AD7374C14AD134400B8009D /* Picture.h */,
+				2AD7374D14AD134400B8009D /* queue.h */,
+				2AD7374E14AD134400B8009D /* SonatinaTag.h */,
+			);
+			name = SonatinaTag;
+			sourceTree = "<group>";
+		};
+		2AD7373E14AD132300B8009D /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7373F14AD133500B8009D /* FLAC.h */,
+				2AD7374014AD133500B8009D /* ID3v1.h */,
+				2AD7374114AD133500B8009D /* ID3v2.h */,
+				2AD7374214AD133500B8009D /* ID3v2Frame.h */,
+				2AD7374314AD133500B8009D /* M4A.h */,
+			);
+			name = Tags;
+			sourceTree = "<group>";
+		};
+		2AD7375514AD135200B8009D /* base */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7375614AD136400B8009D /* Tag.c */,
+				2AD7375714AD136400B8009D /* Tag.h */,
+			);
+			name = base;
+			sourceTree = "<group>";
+		};
+		2AD7375A14AD136C00B8009D /* id3v1 */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7377B14AD13BC00B8009D /* ID3v1.c */,
+			);
+			name = id3v1;
+			sourceTree = "<group>";
+		};
+		2AD7375B14AD137200B8009D /* id3v2 */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7376714AD13B000B8009D /* CommentFrame.c */,
+				2AD7376814AD13B000B8009D /* Frame.c */,
+				2AD7376914AD13B000B8009D /* Frame.h */,
+				2AD7376A14AD13B000B8009D /* GenericFrame.c */,
+				2AD7376B14AD13B000B8009D /* ID3v2.c */,
+				2AD7376C14AD13B000B8009D /* PictureFrame.c */,
+				2AD7376D14AD13B000B8009D /* TextFrame.c */,
+				2AD7376E14AD13B000B8009D /* URLFrame.c */,
+				2AD7376F14AD13B000B8009D /* UserTextFrame.c */,
+				2AD7377014AD13B000B8009D /* UserURLFrame.c */,
+			);
+			name = id3v2;
+			sourceTree = "<group>";
+		};
+		2AD7375C14AD137700B8009D /* flac */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7376514AD13A100B8009D /* FLACVorbisComments.c */,
+			);
+			name = flac;
+			sourceTree = "<group>";
+		};
+		2AD7375D14AD137B00B8009D /* m4a */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7376314AD139700B8009D /* M4A-iTunes.c */,
+			);
+			name = m4a;
+			sourceTree = "<group>";
+		};
+		2AD7375E14AD137F00B8009D /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7375F14AD138D00B8009D /* Dictionary.c */,
+				2AD7376014AD138D00B8009D /* Picture.c */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD7374414AD133500B8009D /* FLAC.h in Headers */,
+				2AD7374514AD133500B8009D /* ID3v1.h in Headers */,
+				2AD7374614AD133500B8009D /* ID3v2.h in Headers */,
+				2AD7374714AD133500B8009D /* ID3v2Frame.h in Headers */,
+				2AD7374814AD133500B8009D /* M4A.h in Headers */,
+				2AD7374F14AD134400B8009D /* cdefs.h in Headers */,
+				2AD7375014AD134400B8009D /* Dictionary.h in Headers */,
+				2AD7375114AD134400B8009D /* Error.h in Headers */,
+				2AD7375214AD134400B8009D /* Picture.h in Headers */,
+				2AD7375314AD134400B8009D /* queue.h in Headers */,
+				2AD7375414AD134400B8009D /* SonatinaTag.h in Headers */,
+				2AD7375914AD136400B8009D /* Tag.h in Headers */,
+				2AD7377314AD13B000B8009D /* Frame.h in Headers */,
+				2AFAE497150E1E1E0045B516 /* basedefs.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8DC2EF4F0486A6940098B216 /* SonatinaTag */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "SonatinaTag" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				2AD7373414AD12A700B8009D /* ShellScript */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SonatinaTag;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = SonatinaTag;
+			productReference = 8DC2EF5B0486A6940098B216 /* SonatinaTag.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "SonatinaTag" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* SonatinaTag */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DC2EF4F0486A6940098B216 /* SonatinaTag */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2AD7373414AD12A700B8009D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}/../include\"\nrm -rf \"${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/Tags\"\ncp SonatinaTag/*.h \"${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}\"\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/Tags\"\ncp SonatinaTag/Tags/*.h \"${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/Tags\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD7375814AD136400B8009D /* Tag.c in Sources */,
+				2AD7376114AD138D00B8009D /* Dictionary.c in Sources */,
+				2AD7376214AD138D00B8009D /* Picture.c in Sources */,
+				2AD7376414AD139700B8009D /* M4A-iTunes.c in Sources */,
+				2AD7376614AD13A100B8009D /* FLACVorbisComments.c in Sources */,
+				2AD7377114AD13B000B8009D /* CommentFrame.c in Sources */,
+				2AD7377214AD13B000B8009D /* Frame.c in Sources */,
+				2AD7377414AD13B000B8009D /* GenericFrame.c in Sources */,
+				2AD7377514AD13B000B8009D /* ID3v2.c in Sources */,
+				2AD7377614AD13B000B8009D /* PictureFrame.c in Sources */,
+				2AD7377714AD13B000B8009D /* TextFrame.c in Sources */,
+				2AD7377814AD13B000B8009D /* URLFrame.c in Sources */,
+				2AD7377914AD13B000B8009D /* UserTextFrame.c in Sources */,
+				2AD7377A14AD13B000B8009D /* UserURLFrame.c in Sources */,
+				2AD7377C14AD13BC00B8009D /* ID3v1.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91AE08733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				PRODUCT_NAME = SonatinaTag;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		1DEB91AF08733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G4;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				PRODUCT_NAME = SonatinaTag;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		1DEB91B208733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_64_BIT)",
+					ppc7400,
+				);
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-I../include";
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		1DEB91B308733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_64_BIT)",
+					ppc7400,
+				);
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-I../include";
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "SonatinaTag" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91AE08733DA50010E9CD /* Debug */,
+				1DEB91AF08733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "SonatinaTag" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Debug */,
+				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

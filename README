@@ -1,0 +1,59 @@
+README for SonatinaTag
+
+What is SonatinaTag?
+--------------------
+SonatinaTag is a music file tag reading framework written in Objective C,
+targeted mainly at Mac OS X. Currently it supports reading tags from MP3 files
+(both ID3v1 and ID3v2), M4A files (iTunes-style tags are the only ones currently
+supported for M4A), and FLAC files (Vorbis comments and Picture metadata).
+
+Why SonatinaTag?
+----------------
+I started writing SonatinaTag mostly because I couldn't find anything suitable
+for reading music tags written either in C or Objective C. Basically, I was
+writing a small music player program for Mac OS X called Sonatina, and needed
+tag reading support. I was using TagLib, which is written in C++, but found that
+it seemed like more than a little bit of a kludge to be using it in a program
+written completely in Objective C (TagLib is a great library in and of itself,
+and supports all manner of files that SonatinaTag doesn't yet, so if you're
+looking for a more mature library for this kind of stuff, grab it from
+http://developer.kde.org/~wheeler/taglib.html). Basically, SonatinaTag exists
+only because I didn't like using C++ in the middle of my Objective C program, as
+silly as that may seem.
+
+Requirements
+------------
+SonatinaTag has very few external dependencies. If you are building for a non
+Mac OS X target, you basically just need a relatively sane build environment
+that has decent support for C99 and a relatively POSIX-like libc. If you have
+CoreFoundation installed, you can optionally use that as well to get the
+API that I use in Sonatina itself.
+
+On Mac OS X, there really aren't any external dependencies other than what
+should be installed with any version of Xcode. The Xcode project builds by
+default as a 32-bit PPC/32-bit x86/64-bit x86 Universal binary. The Xcode
+project is set for a deployment target of Mac OS X 10.5 or later, but it
+probably would work with earlier versions of Mac OS X as well.
+
+License (see COPYING for the full license)
+------------------------------------------
+SonatinaTag
+Copyright (C) 2010, 2011, 2012 Lawrence Sebald
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+version 2.1 as published by the Free Software Foundation.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+That's All Folks
+----------------
+Well, that's the end of the README file, as boring as it is. There's really
+nothing else I can think of to say here.
