@@ -13,3 +13,16 @@
 *.o
 *.a
 build/
+
+# autotools generated stuff
+Makefile
+Makefile.in
+ltmain.sh
+config.guess
+config.sub
+install-sh
+missing
+depcomp
+autom4te.cache/
+configure
+config.h
