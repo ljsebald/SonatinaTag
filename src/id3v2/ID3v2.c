@@ -457,9 +457,9 @@ static int frameNumber(const ST_ID3v2 *tag, ST_ID3v2_FrameCode code,
         buf[tf->size] = buf[tf->size + 1] = 0;
 
         if(buf[0] == 0xFF && buf[1] == 0xFE)
-            return my_atoi16le(buf);
+            return my_atoi16le(buf + 2);
         else if(buf[0] == 0xFE && buf[1] == 0xFF)
-            return my_atoi16be(buf);
+            return my_atoi16be(buf + 2);
         else
             return -1;
     }
