@@ -25,7 +25,8 @@ typedef enum ST_TagType_e {
     ST_TagType_ID3v1            = 1,
     ST_TagType_ID3v2            = 2,
     ST_TagType_FLAC             = 3,
-    ST_TagType_M4A              = 4
+    ST_TagType_M4A              = 4,
+    ST_TagType_APE              = 5
 } ST_TagType;
 
 /* Valid Encoding types */

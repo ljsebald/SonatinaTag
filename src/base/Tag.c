@@ -29,6 +29,7 @@
 #include "SonatinaTag/Tags/ID3v2.h"
 #include "SonatinaTag/Tags/FLAC.h"
 #include "SonatinaTag/Tags/M4A.h"
+#include "SonatinaTag/Tags/APE.h"
 
 ST_FUNC ST_TagType ST_Tag_type(const ST_Tag *tag) {
     if(!tag)
@@ -44,9 +45,13 @@ ST_FUNC ST_Tag *ST_Tag_createFromFile(const char *fn) {
     if(!ext)
         return NULL;
 
-    /* Prefer ID3v2 over ID3v1 for MP3 files */
+    /* Prefer ID3v2 over APEv2 and ID3v1 for MP3 files */
     if(!strcasecmp(ext, ".mp3")) {
         if((rv = (ST_Tag *)ST_ID3v2_createFromFile(fn))) {
+            return rv;
+        }
+
+        if((rv = (ST_Tag *)ST_APE_createFromFile(fn))) {
             return rv;
         }
 
@@ -79,6 +84,9 @@ ST_FUNC void ST_Tag_free(ST_Tag *tag) {
 
         case ST_TagType_M4A:
             return ST_M4A_free((ST_M4A *)tag);
+
+        case ST_TagType_APE:
+            return ST_APE_free((ST_APE *)tag);
     }
 }
 
@@ -98,6 +106,9 @@ ST_FUNC int ST_Tag_track(const ST_Tag *tag) {
 
         case ST_TagType_M4A:
             return ST_M4A_track((const ST_M4A *)tag);
+
+        case ST_TagType_APE:
+            return ST_APE_track((const ST_APE *)tag);
     }
 
     return -1;
@@ -120,6 +131,9 @@ ST_FUNC int ST_Tag_disc(const ST_Tag *tag) {
 
         case ST_TagType_M4A:
             return ST_M4A_disc((const ST_M4A *)tag);
+
+        case ST_TagType_APE:
+            return ST_APE_disc((const ST_APE *)tag);
     }
 
     return -1;
@@ -144,6 +158,10 @@ ST_FUNC const ST_Picture *ST_Tag_picture(const ST_Tag *tag, ST_PictureType pt,
         case ST_TagType_M4A:
             /* The picture type is ignored for M4A... */
             return ST_M4A_picture((const ST_M4A *)tag, index);
+
+        case ST_TagType_APE:
+            /* We don't support pictures in APE tags yet... */
+            return 0;
     }
 
     return NULL;
@@ -166,6 +184,9 @@ ST_FUNC CFStringRef ST_Tag_copyTitle(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_M4A:
             return ST_M4A_copyTitle((const ST_M4A *)tag, err);
+
+        case ST_TagType_APE:
+            return ST_APE_copyTitle((const ST_APE *)tag, err);
     }
 
     return NULL;
@@ -187,6 +208,9 @@ ST_FUNC CFStringRef ST_Tag_copyArtist(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_M4A:
             return ST_M4A_copyArtist((const ST_M4A *)tag, err);
+
+        case ST_TagType_APE:
+            return ST_APE_copyArtist((const ST_APE *)tag, err);
     }
 
     return NULL;
@@ -208,6 +232,9 @@ ST_FUNC CFStringRef ST_Tag_copyAlbum(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_M4A:
             return ST_M4A_copyAlbum((const ST_M4A *)tag, err);
+
+        case ST_TagType_APE:
+            return ST_APE_copyAlbum((const ST_APE *)tag, err);
     }
 
     return NULL;
@@ -229,6 +256,9 @@ ST_FUNC CFStringRef ST_Tag_copyComment(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_M4A:
             return ST_M4A_copyComment((const ST_M4A *)tag, err);
+
+        case ST_TagType_APE:
+            return ST_APE_copyComment((const ST_APE *)tag, err);
     }
 
     return NULL;
@@ -250,6 +280,9 @@ ST_FUNC CFStringRef ST_Tag_copyDate(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_M4A:
             return ST_M4A_copyDate((const ST_M4A *)tag, err);
+
+        case ST_TagType_APE:
+            return ST_APE_copyDate((const ST_APE *)tag, err);
     }
 
     return NULL;
@@ -274,6 +307,9 @@ ST_FUNC CFStringRef ST_Tag_copyGenre(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_M4A:
             return ST_M4A_copyGenre((const ST_M4A *)tag, err);
+
+        case ST_TagType_APE:
+            return ST_APE_copyGenre((const ST_APE *)tag, err);
     }
 
     return NULL;
@@ -295,6 +331,9 @@ ST_FUNC CFDictionaryRef ST_Tag_copyDictionary(const ST_Tag *tag) {
 
         case ST_TagType_M4A:
             return ST_M4A_copyDictionary((const ST_M4A *)tag);
+
+        case ST_TagType_APE:
+            return ST_APE_copyDictionary((const ST_APE *)tag);
     }
 
     return NULL;

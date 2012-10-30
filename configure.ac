@@ -50,6 +50,7 @@ AC_CONFIG_FILES([Makefile
                  src/id3v2/Makefile
                  src/m4a/Makefile
                  src/utils/Makefile
+                 src/ape/Makefile
                  SonatinaTag.pc])
 
 AC_OUTPUT

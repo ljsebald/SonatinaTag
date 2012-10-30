@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A71DDDF16404DDE006F8B19 /* APETag.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A71DDDE16404DDE006F8B19 /* APETag.c */; };
+		2A71DDE116404E0E006F8B19 /* APE.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A71DDE016404E0E006F8B19 /* APE.h */; };
 		2AD7374414AD133500B8009D /* FLAC.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7373F14AD133500B8009D /* FLAC.h */; settings = {ATTRIBUTES = (); }; };
 		2AD7374514AD133500B8009D /* ID3v1.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374014AD133500B8009D /* ID3v1.h */; settings = {ATTRIBUTES = (); }; };
 		2AD7374614AD133500B8009D /* ID3v2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD7374114AD133500B8009D /* ID3v2.h */; settings = {ATTRIBUTES = (); }; };
@@ -42,6 +44,8 @@
 
 /* Begin PBXFileReference section */
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2A71DDDE16404DDE006F8B19 /* APETag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = APETag.c; path = ../src/ape/APETag.c; sourceTree = SOURCE_ROOT; };
+		2A71DDE016404E0E006F8B19 /* APE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APE.h; path = ../include/SonatinaTag/Tags/APE.h; sourceTree = SOURCE_ROOT; };
 		2AD7373F14AD133500B8009D /* FLAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAC.h; path = ../include/SonatinaTag/Tags/FLAC.h; sourceTree = SOURCE_ROOT; };
 		2AD7374014AD133500B8009D /* ID3v1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ID3v1.h; path = ../include/SonatinaTag/Tags/ID3v1.h; sourceTree = SOURCE_ROOT; };
 		2AD7374114AD133500B8009D /* ID3v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ID3v2.h; path = ../include/SonatinaTag/Tags/ID3v2.h; sourceTree = SOURCE_ROOT; };
@@ -141,9 +145,18 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		2A71DDDA16404D2B006F8B19 /* ape */ = {
+			isa = PBXGroup;
+			children = (
+				2A71DDDE16404DDE006F8B19 /* APETag.c */,
+			);
+			name = ape;
+			sourceTree = "<group>";
+		};
 		2AD7373A14AD12CB00B8009D /* libSonatinaTag */ = {
 			isa = PBXGroup;
 			children = (
+				2A71DDDA16404D2B006F8B19 /* ape */,
 				2AD7373C14AD131700B8009D /* include */,
 				2AD7375514AD135200B8009D /* base */,
 				2AD7375C14AD137700B8009D /* flac */,
@@ -181,6 +194,7 @@
 		2AD7373E14AD132300B8009D /* Tags */ = {
 			isa = PBXGroup;
 			children = (
+				2A71DDE016404E0E006F8B19 /* APE.h */,
 				2AD7373F14AD133500B8009D /* FLAC.h */,
 				2AD7374014AD133500B8009D /* ID3v1.h */,
 				2AD7374114AD133500B8009D /* ID3v2.h */,
@@ -277,6 +291,7 @@
 				2AD7375914AD136400B8009D /* Tag.h in Headers */,
 				2AD7377314AD13B000B8009D /* Frame.h in Headers */,
 				2AFAE497150E1E1E0045B516 /* basedefs.h in Headers */,
+				2A71DDE116404E0E006F8B19 /* APE.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +390,7 @@
 				2AD7377914AD13B000B8009D /* UserTextFrame.c in Sources */,
 				2AD7377A14AD13B000B8009D /* UserURLFrame.c in Sources */,
 				2AD7377C14AD13BC00B8009D /* ID3v1.c in Sources */,
+				2A71DDDF16404DDE006F8B19 /* APETag.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
