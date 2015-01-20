@@ -1024,6 +1024,7 @@ static int parse_file(ST_ID3v2 *tag, FILE *fp) {
             free(frame);
     }
 
+    fclose(fp);
     return 0;
 
 out_free:
