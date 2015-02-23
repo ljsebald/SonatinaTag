@@ -96,6 +96,8 @@ ST_LOCAL ST_CommentFrame *ST_ID3v2_CommentFrame_create_buf(const uint8_t *buf,
                                                            uint32_t sz);
 ST_LOCAL ST_PictureFrame *ST_ID3v2_PictureFrame_create_buf(const uint8_t *buf,
                                                            uint32_t sz);
+ST_LOCAL ST_PictureFrame *ST_ID3v2_PictureFrame_create_buf2(const uint8_t *buf,
+                                                            uint32_t sz);
 
 ST_END_DECLS
 

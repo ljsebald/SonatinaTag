@@ -897,7 +897,11 @@ static int parse_file(ST_ID3v2 *tag, FILE *fp) {
             if(fread(buf, 1, 6, fp) != 6)
                 goto out_close;
 
-            fcc = (buf[0] << 24) | (buf[1] << 16) | (buf[2] < 8) | ' ';
+            if(buf[0] || buf[1] || buf[2])
+                fcc = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | ' ';
+            else
+                fcc = 0;
+
             sz = szf(buf + 3);
             flags = 0;
             start += 6;
@@ -983,8 +987,14 @@ static int parse_file(ST_ID3v2 *tag, FILE *fp) {
                 fcc == ST_Frame22AttachedPicture) {
             ST_PictureFrame *pframe;
 
-            if(!(pframe = ST_ID3v2_PictureFrame_create_buf(frame, sz)))
-                goto out_close;
+            if(majorver > 2) {
+                if(!(pframe = ST_ID3v2_PictureFrame_create_buf(frame, sz)))
+                    goto out_close;
+            }
+            else {
+                if(!(pframe = ST_ID3v2_PictureFrame_create_buf2(frame, sz)))
+                    goto out_close;
+            }
 
             pframe->base.flags = flags;
 
