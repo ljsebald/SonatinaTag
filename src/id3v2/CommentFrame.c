@@ -124,14 +124,14 @@ ST_LOCAL ST_CommentFrame *ST_ID3v2_CommentFrame_create_buf(const uint8_t *buf,
                    (buf[0] == (uint8_t)ST_TextEncoding_UTF16BE)) ? 2 : 1;
 
         if(enc_len == 1)
-            rv->desc_size = blen_utf8(buf + 4, sz - 4);
+            rv->desc_size = (uint32_t)blen_utf8(buf + 4, sz - 4);
         else
-            rv->desc_size = blen_utf16(buf + 4, sz - 4);
+            rv->desc_size = (uint32_t)blen_utf16(buf + 4, sz - 4);
 
         rv->string_size = sz - rv->desc_size - 4 - enc_len;
 
         /* Sanity check... */
-        if(rv->desc_size < 0 || rv->string_size < 0) {
+        if(rv->desc_size == (uint32_t)-1 || rv->string_size == (uint32_t)-1) {
             free(rv);
             return NULL;
         }

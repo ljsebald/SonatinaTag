@@ -87,6 +87,9 @@ ST_FUNC void ST_Tag_free(ST_Tag *tag) {
 
         case ST_TagType_APE:
             return ST_APE_free((ST_APE *)tag);
+
+        default:
+            return;
     }
 }
 
@@ -109,9 +112,10 @@ ST_FUNC int ST_Tag_track(const ST_Tag *tag) {
 
         case ST_TagType_APE:
             return ST_APE_track((const ST_APE *)tag);
-    }
 
-    return -1;
+        default:
+            return -1;
+    }
 }
 
 ST_FUNC int ST_Tag_disc(const ST_Tag *tag) {
@@ -134,9 +138,10 @@ ST_FUNC int ST_Tag_disc(const ST_Tag *tag) {
 
         case ST_TagType_APE:
             return ST_APE_disc((const ST_APE *)tag);
-    }
 
-    return -1;
+        default:
+            return -1;
+    }
 }
 
 ST_FUNC const ST_Picture *ST_Tag_picture(const ST_Tag *tag, ST_PictureType pt,
@@ -147,7 +152,7 @@ ST_FUNC const ST_Picture *ST_Tag_picture(const ST_Tag *tag, ST_PictureType pt,
     switch(tag->type) {
         case ST_TagType_ID3v1:
             /* ID3v1 doesn't support pictures. */
-            return 0;
+            return NULL;
 
         case ST_TagType_ID3v2:
             return ST_ID3v2_picture((const ST_ID3v2 *)tag, pt, index);
@@ -161,10 +166,11 @@ ST_FUNC const ST_Picture *ST_Tag_picture(const ST_Tag *tag, ST_PictureType pt,
 
         case ST_TagType_APE:
             /* We don't support pictures in APE tags yet... */
-            return 0;
-    }
+            return NULL;
 
-    return NULL;
+        default:
+            return NULL;
+    }
 }
 
 #ifdef ST_HAVE_COREFOUNDATION
@@ -187,9 +193,10 @@ ST_FUNC CFStringRef ST_Tag_copyTitle(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_APE:
             return ST_APE_copyTitle((const ST_APE *)tag, err);
-    }
 
-    return NULL;
+        default:
+            return NULL;
+    }
 }
 
 ST_FUNC CFStringRef ST_Tag_copyArtist(const ST_Tag *tag, ST_Error *err) {
@@ -211,9 +218,10 @@ ST_FUNC CFStringRef ST_Tag_copyArtist(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_APE:
             return ST_APE_copyArtist((const ST_APE *)tag, err);
-    }
 
-    return NULL;
+        default:
+            return NULL;
+    }
 }
 
 ST_FUNC CFStringRef ST_Tag_copyAlbum(const ST_Tag *tag, ST_Error *err) {
@@ -235,9 +243,10 @@ ST_FUNC CFStringRef ST_Tag_copyAlbum(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_APE:
             return ST_APE_copyAlbum((const ST_APE *)tag, err);
-    }
 
-    return NULL;
+        default:
+            return NULL;
+    }
 }
 
 ST_FUNC CFStringRef ST_Tag_copyComment(const ST_Tag *tag, ST_Error *err) {
@@ -259,9 +268,10 @@ ST_FUNC CFStringRef ST_Tag_copyComment(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_APE:
             return ST_APE_copyComment((const ST_APE *)tag, err);
-    }
 
-    return NULL;
+        default:
+            return NULL;
+    }
 }
 
 ST_FUNC CFStringRef ST_Tag_copyDate(const ST_Tag *tag, ST_Error *err) {
@@ -283,9 +293,10 @@ ST_FUNC CFStringRef ST_Tag_copyDate(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_APE:
             return ST_APE_copyDate((const ST_APE *)tag, err);
-    }
 
-    return NULL;
+        default:
+            return NULL;
+    }
 }
 
 ST_FUNC CFStringRef ST_Tag_copyGenre(const ST_Tag *tag, ST_Error *err) {
@@ -310,9 +321,10 @@ ST_FUNC CFStringRef ST_Tag_copyGenre(const ST_Tag *tag, ST_Error *err) {
 
         case ST_TagType_APE:
             return ST_APE_copyGenre((const ST_APE *)tag, err);
-    }
 
-    return NULL;
+        default:
+            return NULL;
+    }
 }
 
 ST_FUNC CFDictionaryRef ST_Tag_copyDictionary(const ST_Tag *tag) {
@@ -334,8 +346,9 @@ ST_FUNC CFDictionaryRef ST_Tag_copyDictionary(const ST_Tag *tag) {
 
         case ST_TagType_APE:
             return ST_APE_copyDictionary((const ST_APE *)tag);
-    }
 
-    return NULL;
+        default:
+            return NULL;
+    }
 }
 #endif

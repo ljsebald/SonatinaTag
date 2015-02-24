@@ -259,7 +259,7 @@ ST_FUNC ST_APE *ST_APE_createFromFile(const char *fn) {
         }
 
         /* Read in the value */
-        if(!(val = (char *)malloc(isz))) {
+        if(!(val = (uint8_t *)malloc(isz))) {
             free(key);
             goto out_close;
         }
